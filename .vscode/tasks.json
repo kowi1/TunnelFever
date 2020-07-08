@@ -1,0 +1,25 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "gradle",
+            "type": "shell",
+            "command": "/usr/lib/gradle/bin/gradle build"
+        },
+        {
+            "label": "adb",
+            "type": "shell",
+            "command": "/usr/lib/Android/platform-tools/adb start-server"
+        },
+        {
+            "label": "Build",
+            "dependsOn": [
+                "adb",
+                "gradle"
+            ]
+        }
+
+    ]
+}

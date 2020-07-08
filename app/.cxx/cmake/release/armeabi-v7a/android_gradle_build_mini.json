@@ -1,0 +1,32 @@
+{
+  "buildFiles": [
+    "/usr/lib/Android/ndk/build/cmake/platforms.cmake",
+    "/home/deji/Documents/endless-tunnel/app/src/main/cpp/glm/CMakeLists.txt",
+    "/usr/lib/Android/ndk/build/cmake/android.toolchain.cmake",
+    "/home/deji/Documents/endless-tunnel/app/src/main/cpp/CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "/usr/bin/ninja -C \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/armeabi-v7a\" clean"
+  ],
+  "buildTargetsCommand": "/usr/bin/ninja -C \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/armeabi-v7a\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "glm-Release-armeabi-v7a": {
+      "artifactName": "glm",
+      "buildCommand": "/usr/bin/ninja -C \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/armeabi-v7a\" glm",
+      "abi": "armeabi-v7a",
+      "output": "/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/armeabi-v7a/glm/libglm.a"
+    },
+    "native_app_glue-Release-armeabi-v7a": {
+      "artifactName": "native_app_glue",
+      "buildCommand": "/usr/bin/ninja -C \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/armeabi-v7a\" native_app_glue",
+      "abi": "armeabi-v7a",
+      "output": "/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/armeabi-v7a/libnative_app_glue.a"
+    },
+    "game-Release-armeabi-v7a": {
+      "artifactName": "game",
+      "buildCommand": "/usr/bin/ninja -C \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/armeabi-v7a\" game",
+      "abi": "armeabi-v7a",
+      "output": "/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/release/obj/armeabi-v7a/libgame.so"
+    }
+  }
+}

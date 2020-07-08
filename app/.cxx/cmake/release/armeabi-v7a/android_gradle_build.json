@@ -1,0 +1,195 @@
+{
+  "stringTable": {
+    "0": "/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/armeabi-v7a",
+    "1": "--target=armv7-none-linux-androideabi16 --gcc-toolchain=/usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security -Oz -DNDEBUG -fPIC -DGLM_FORCE_SIZE_T_LENGTH -DGLM_FORCE_RADIANS",
+    "2": "--target=armv7-none-linux-androideabi16 --gcc-toolchain=/usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dgame_EXPORTS -I/home/deji/Documents/endless-tunnel/app/src/main/cpp -I/home/deji/Documents/endless-tunnel/app/src/main/cpp/data -I/usr/lib/Android/ndk/sources/android/native_app_glue -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security -std=gnu++11 -Wall -Oz -DNDEBUG -fPIC -DGLM_FORCE_SIZE_T_LENGTH -DGLM_FORCE_RADIANS",
+    "3": "--target=armv7-none-linux-androideabi16 --gcc-toolchain=/usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot -I/home/deji/Documents/endless-tunnel/app/src/main/cpp/glm/.. -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -fno-addrsig -march=armv7-a -mthumb -Wa,--noexecstack -Wformat -Werror=format-security -std=gnu++11 -Wall -Oz -DNDEBUG -fPIC -DGLM_FORCE_SIZE_T_LENGTH -DGLM_FORCE_RADIANS"
+  },
+  "buildFiles": [
+    "/usr/lib/Android/ndk/build/cmake/platforms.cmake",
+    "/home/deji/Documents/endless-tunnel/app/src/main/cpp/glm/CMakeLists.txt",
+    "/usr/lib/Android/ndk/build/cmake/android.toolchain.cmake",
+    "/home/deji/Documents/endless-tunnel/app/src/main/cpp/CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "/usr/bin/ninja -C \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/armeabi-v7a\" clean"
+  ],
+  "buildTargetsCommand": "/usr/bin/ninja -C \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/armeabi-v7a\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "glm-Release-armeabi-v7a": {
+      "buildCommand": "/usr/bin/ninja -C \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/armeabi-v7a\" glm",
+      "buildType": "release",
+      "toolchain": "1917735456",
+      "abi": "armeabi-v7a",
+      "artifactName": "glm",
+      "files": [
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/glm/detail/glm.cpp",
+          "flagsOrdinal": 3,
+          "workingDirectoryOrdinal": 0
+        }
+      ],
+      "headers": [],
+      "output": "/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/armeabi-v7a/glm/libglm.a"
+    },
+    "native_app_glue-Release-armeabi-v7a": {
+      "buildCommand": "/usr/bin/ninja -C \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/armeabi-v7a\" native_app_glue",
+      "buildType": "release",
+      "toolchain": "1917735456",
+      "abi": "armeabi-v7a",
+      "artifactName": "native_app_glue",
+      "files": [
+        {
+          "src": "/usr/lib/Android/ndk/sources/android/native_app_glue/android_native_app_glue.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        }
+      ],
+      "headers": [],
+      "output": "/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/armeabi-v7a/libnative_app_glue.a"
+    },
+    "game-Release-armeabi-v7a": {
+      "buildCommand": "/usr/bin/ninja -C \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/armeabi-v7a\" game",
+      "buildType": "release",
+      "toolchain": "1917735456",
+      "abi": "armeabi-v7a",
+      "artifactName": "game",
+      "files": [
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/android_main.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/anim.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/ascii_to_geom.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/dialog_scene.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/indexbuf.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/input_util.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/jni_util.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/native_engine.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/obstacle.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/obstacle_generator.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/our_shader.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/play_scene.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/scene.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/scene_manager.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/sfxman.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/shader.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/shape_renderer.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/tex_quad.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/text_renderer.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/texture.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/ui_scene.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/util.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/vertexbuf.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/welcome_scene.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        }
+      ],
+      "headers": [],
+      "output": "/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/release/obj/armeabi-v7a/libgame.so"
+    }
+  },
+  "toolchains": {
+    "1917735456": {
+      "cCompilerExecutable": "/usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64/bin/clang",
+      "cppCompilerExecutable": "/usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++"
+    }
+  },
+  "cFileExtensions": [
+    "c"
+  ],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

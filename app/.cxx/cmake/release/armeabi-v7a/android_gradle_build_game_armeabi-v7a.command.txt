@@ -1,0 +1,7 @@
+Executable : /usr/bin/ninja
+arguments : 
+-C
+/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/armeabi-v7a
+game
+jvmArgs : 
+

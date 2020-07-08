@@ -1,0 +1,32 @@
+{
+  "buildFiles": [
+    "/usr/lib/Android/ndk/build/cmake/platforms.cmake",
+    "/home/deji/Documents/endless-tunnel/app/src/main/cpp/glm/CMakeLists.txt",
+    "/usr/lib/Android/ndk/build/cmake/android.toolchain.cmake",
+    "/home/deji/Documents/endless-tunnel/app/src/main/cpp/CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "/usr/bin/ninja -C \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86\" clean"
+  ],
+  "buildTargetsCommand": "/usr/bin/ninja -C \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "native_app_glue-Debug-x86": {
+      "artifactName": "native_app_glue",
+      "buildCommand": "/usr/bin/ninja -C \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86\" native_app_glue",
+      "abi": "x86",
+      "output": "/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86/libnative_app_glue.a"
+    },
+    "game-Debug-x86": {
+      "artifactName": "game",
+      "buildCommand": "/usr/bin/ninja -C \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86\" game",
+      "abi": "x86",
+      "output": "/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/debug/obj/x86/libgame.so"
+    },
+    "glm-Debug-x86": {
+      "artifactName": "glm",
+      "buildCommand": "/usr/bin/ninja -C \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86\" glm",
+      "abi": "x86",
+      "output": "/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86/glm/libglm.a"
+    }
+  }
+}

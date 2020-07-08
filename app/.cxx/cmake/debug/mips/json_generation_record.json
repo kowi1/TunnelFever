@@ -1,0 +1,38 @@
+[
+  {
+    "level": "INFO",
+    "message": "Start JSON generation. Platform version: 14 min SDK version: mips"
+  },
+  {
+    "level": "INFO",
+    "message": "rebuilding JSON /home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/mips/android_gradle_build.json due to:"
+  },
+  {
+    "level": "INFO",
+    "message": "- expected json /home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/mips/android_gradle_build.json file is not present, will remove stale json folder"
+  },
+  {
+    "level": "INFO",
+    "message": "- missing previous command file /home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/mips/build_command.txt, will remove stale json folder"
+  },
+  {
+    "level": "INFO",
+    "message": "- command changed from previous, will remove stale json folder"
+  },
+  {
+    "level": "INFO",
+    "message": "removing stale contents from \u0027/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/mips\u0027"
+  },
+  {
+    "level": "INFO",
+    "message": "created folder \u0027/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/mips\u0027"
+  },
+  {
+    "level": "INFO",
+    "message": "executing cmake Executable : /usr/bin/cmake\narguments : \n-H/home/deji/Documents/endless-tunnel/app/src/main/cpp\n-B/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/mips\n-DANDROID_ABI\u003dmips\n-DANDROID_PLATFORM\u003dandroid-14\n-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/debug/obj/mips\n-DCMAKE_BUILD_TYPE\u003dDebug\n-DANDROID_NDK\u003d/usr/lib/Android/ndk\n-DCMAKE_SYSTEM_NAME\u003dAndroid\n-DCMAKE_ANDROID_ARCH_ABI\u003dmips\n-DCMAKE_SYSTEM_VERSION\u003d14\n-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\n-DCMAKE_ANDROID_NDK\u003d/usr/lib/Android/ndk\n-DCMAKE_TOOLCHAIN_FILE\u003d/usr/lib/Android/ndk/build/cmake/android.toolchain.cmake\n-G Ninja\n-DCMAKE_MAKE_PROGRAM\u003d/usr/bin/ninja\n-DANDROID_STL\u003dc++_static\njvmArgs : \n\n"
+  },
+  {
+    "level": "INFO",
+    "message": "JSON generation completed with problem. Exception: com.android.ide.common.process.ProcessException: Error configuring CMake server (/usr/bin).\r\nAndroid: Targeting API \u002714\u0027 with architecture \u0027mips\u0027, ABI \u0027mips\u0027, and processor \u0027mips\u0027\nAndroid: Selected Clang toolchain \u0027mipsel-linux-android-clang\u0027 with GCC toolchain \u0027mips64el-linux-android-4.9\u0027\nCheck for working C compiler: /usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64/bin/clang\nCheck for working C compiler: /usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64/bin/clang -- broken\nCMake Error at /usr/share/cmake-3.13/Modules/CMakeTestCCompiler.cmake:52 (message):\n  The C compiler\n\n    \"/usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64/bin/clang\"\n\n  is not able to compile a simple test program.\n\n  It fails with the following output:\n\n    Change Dir: /home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/mips/CMakeFiles/CMakeTmp\n    \n    Run Build Command:\"/usr/bin/ninja\" \"cmTC_815cf\"\n    [1/2] Building C object CMakeFiles/cmTC_815cf.dir/testCCompiler.c.o\n    FAILED: CMakeFiles/cmTC_815cf.dir/testCCompiler.c.o \n    /usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target\u003dmipsel-none-linux-android --gcc-toolchain\u003d/usr/lib/Android/ndk/toolchains/mips64el-linux-android-4.9/prebuilt/linux-x86_64 --sysroot\u003d/usr/lib/Android/ndk/sysroot  -isystem /usr/lib/Android/ndk/sysroot/usr/include -isystem /usr/lib/Android/ndk/sysroot/usr/include/mipsel-linux-android -isystem /usr/lib/Android/ndk/sysroot/usr/include/mipsel-linux-android -D__ANDROID_API__\u003d14 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mips32 -Wa,--noexecstack -Wformat -Werror\u003dformat-security   -O0 -fno-limit-debug-info -o CMakeFiles/cmTC_815cf.dir/testCCompiler.c.o   -c testCCompiler.c\n    /usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64/bin/clang: error while loading shared libraries: libncurses.so.5: cannot open shared object file: No such file or directory\n    ninja: build stopped: subcommand failed.\n    \n\n  \n\n  CMake will not be able to correctly generate this project.\n\n\nConfiguring incomplete, errors occurred!\nSee also \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/mips/CMakeFiles/CMakeOutput.log\".\nSee also \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/mips/CMakeFiles/CMakeError.log\".\n"
+  }
+]
