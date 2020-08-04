@@ -20,6 +20,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.joyholdings.tunnel">
 
+<uses-permission android:name="com.android.vending.BILLING" />
   <application
       android:allowBackup="false"
       android:fullBackupContent="false"
