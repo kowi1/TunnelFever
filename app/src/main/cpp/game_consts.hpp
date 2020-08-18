@@ -108,7 +108,7 @@
 #define LIFE_SCALE_Y 1.5f
 
 // how many lives the player has
-#define PLAYER_LIVES 4
+#define PLAYER_LIVES 1
 
 // how many points player gets for picking up a bonus
 #define BONUS_POINTS 50

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "548587688240",
+    "firebase_url": "https://tunnel-fever.firebaseio.com",
+    "project_id": "tunnel-fever",
+    "storage_bucket": "tunnel-fever.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:548587688240:android:9b803725eb63b42b74b8f5",
+        "android_client_info": {
+          "package_name": "com.joyholdings.tunnel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "548587688240-1g20giqnt8hgeukvl7971qtdrt1q00ts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrKysNUWOYpPXTDaq5W_XpoLAjddLL_z0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "548587688240-1g20giqnt8hgeukvl7971qtdrt1q00ts.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

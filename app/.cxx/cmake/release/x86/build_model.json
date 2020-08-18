@@ -30,7 +30,8 @@
       "cmakeToolchainFile": "."
     },
     "buildSystemArgumentList": [
-      "-DANDROID_STL\u003dc++_static"
+      "-DANDROID_STL\u003dc++_static",
+      "-DFIREBASE_CPP_SDK_DIR\u003d/usr/lib/firebase_cpp_sdk"
     ],
     "cFlagList": [],
     "cppFlagsList": [],

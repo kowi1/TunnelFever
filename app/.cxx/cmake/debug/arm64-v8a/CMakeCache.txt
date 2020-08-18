@@ -230,6 +230,12 @@ CMAKE_TOOLCHAIN_FILE:FILEPATH=/usr/lib/Android/ndk/build/cmake/android.toolchain
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//No help, variable specified on the command line.
+FIREBASE_CPP_SDK_DIR:UNINITIALIZED=/usr/lib/firebase_cpp_sdk
+
+//pkg-config executable
+PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
+
 //Value Computed by CMake
 Project_BINARY_DIR:STATIC=/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/arm64-v8a
 
@@ -237,7 +243,7 @@ Project_BINARY_DIR:STATIC=/home/deji/Documents/endless-tunnel/app/.cxx/cmake/deb
 Project_SOURCE_DIR:STATIC=/home/deji/Documents/endless-tunnel/app/src/main/cpp
 
 //Dependencies for the target
-game_LIB_DEPENDS:STATIC=general;android;general;native_app_glue;general;atomic;general;EGL;general;GLESv2;general;glm;general;log;general;OpenSLES;
+game_LIB_DEPENDS:STATIC=general;android;general;native_app_glue;general;atomic;general;EGL;general;GLESv2;general;glm;general;log;general;OpenSLES;general;firebase_analytics;firebase_auth;firebase_database;firebase_app;
 
 
 ########################
@@ -334,7 +340,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=2
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=3
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -375,4 +381,8 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Details about finding PkgConfig
+FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig:INTERNAL=[/usr/bin/pkg-config][v0.29.1()]
+//ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
+PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
 

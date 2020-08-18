@@ -5,3 +5,5 @@
 /home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/armeabi-v7a/glm/CMakeFiles/rebuild_cache.dir
 /home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/armeabi-v7a/glm/CMakeFiles/glm.dir
 /home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/armeabi-v7a/glm/CMakeFiles/edit_cache.dir
+/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/armeabi-v7a/bin/CMakeFiles/rebuild_cache.dir
+/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/armeabi-v7a/bin/CMakeFiles/edit_cache.dir

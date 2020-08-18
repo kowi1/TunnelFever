@@ -37,6 +37,7 @@ class WelcomeScene : public UiScene {
 
     public:
         WelcomeScene();
+        WelcomeScene(struct android_app *app);
         ~WelcomeScene();
 
         virtual void OnCreateWidgets();
@@ -44,6 +45,8 @@ class WelcomeScene : public UiScene {
         virtual void OnKillGraphics();
 
         virtual void DoFrame();
+    private:
+        struct android_app *mApp;
 };
 
 #endif

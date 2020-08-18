@@ -2,11 +2,12 @@
   "stringTable": {
     "0": "/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86",
     "1": "--target=i686-none-linux-android16 --gcc-toolchain=/usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security -O0 -fno-limit-debug-info -fPIC -DGLM_FORCE_SIZE_T_LENGTH -DGLM_FORCE_RADIANS",
-    "2": "--target=i686-none-linux-android16 --gcc-toolchain=/usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dgame_EXPORTS -I/home/deji/Documents/endless-tunnel/app/src/main/cpp -I/home/deji/Documents/endless-tunnel/app/src/main/cpp/data -I/usr/lib/Android/ndk/sources/android/native_app_glue -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security -std=gnu++11 -Wall -O0 -fno-limit-debug-info -fPIC -DGLM_FORCE_SIZE_T_LENGTH -DGLM_FORCE_RADIANS",
+    "2": "--target=i686-none-linux-android16 --gcc-toolchain=/usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dgame_EXPORTS -I/home/deji/Documents/endless-tunnel/app/src/main/cpp -I/home/deji/Documents/endless-tunnel/app/src/main/cpp/data -I/usr/lib/Android/ndk/sources/android/native_app_glue -isystem /usr/lib/firebase_cpp_sdk/include -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security -std=gnu++11 -Wall -O0 -fno-limit-debug-info -fPIC -DGLM_FORCE_SIZE_T_LENGTH -DGLM_FORCE_RADIANS",
     "3": "--target=i686-none-linux-android16 --gcc-toolchain=/usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/usr/lib/Android/ndk/toolchains/llvm/prebuilt/linux-x86_64/sysroot -I/home/deji/Documents/endless-tunnel/app/src/main/cpp/glm/.. -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -fno-addrsig -Wa,--noexecstack -Wformat -Werror=format-security -std=gnu++11 -Wall -O0 -fno-limit-debug-info -fPIC -DGLM_FORCE_SIZE_T_LENGTH -DGLM_FORCE_RADIANS"
   },
   "buildFiles": [
     "/usr/lib/Android/ndk/build/cmake/platforms.cmake",
+    "/usr/lib/firebase_cpp_sdk/CMakeLists.txt",
     "/home/deji/Documents/endless-tunnel/app/src/main/cpp/glm/CMakeLists.txt",
     "/usr/lib/Android/ndk/build/cmake/android.toolchain.cmake",
     "/home/deji/Documents/endless-tunnel/app/src/main/cpp/CMakeLists.txt"
@@ -31,6 +32,22 @@
       ],
       "headers": [],
       "output": "/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86/libnative_app_glue.a"
+    },
+    "glm-Debug-x86": {
+      "buildCommand": "/usr/bin/ninja -C \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86\" glm",
+      "buildType": "debug",
+      "toolchain": "1917735456",
+      "abi": "x86",
+      "artifactName": "glm",
+      "files": [
+        {
+          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/glm/detail/glm.cpp",
+          "flagsOrdinal": 3,
+          "workingDirectoryOrdinal": 0
+        }
+      ],
+      "headers": [],
+      "output": "/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86/glm/libglm.a"
     },
     "game-Debug-x86": {
       "buildCommand": "/usr/bin/ninja -C \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86\" game",
@@ -162,22 +179,6 @@
       ],
       "headers": [],
       "output": "/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/debug/obj/x86/libgame.so"
-    },
-    "glm-Debug-x86": {
-      "buildCommand": "/usr/bin/ninja -C \"/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86\" glm",
-      "buildType": "debug",
-      "toolchain": "1917735456",
-      "abi": "x86",
-      "artifactName": "glm",
-      "files": [
-        {
-          "src": "/home/deji/Documents/endless-tunnel/app/src/main/cpp/glm/detail/glm.cpp",
-          "flagsOrdinal": 3,
-          "workingDirectoryOrdinal": 0
-        }
-      ],
-      "headers": [],
-      "output": "/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86/glm/libglm.a"
     }
   },
   "toolchains": {

@@ -31,6 +31,7 @@ class OurShader;
 class PlayScene : public Scene {
     public:
         PlayScene();
+        PlayScene(struct android_app* app);
         virtual void OnStartGraphics();
         virtual void OnKillGraphics();
         virtual void DoFrame();
@@ -262,6 +263,8 @@ class PlayScene : public Scene {
         // saves progress to the local save file and/or cloudsave
         void SaveProgress();
 
+        void BuyLife();
+
         // returns whether or not this level is a "checkpoint level" (that is,
         // where progress should be saved)
         bool IsCheckpointLevel() {
@@ -274,6 +277,8 @@ class PlayScene : public Scene {
 
         // update projection matrix
         void UpdateProjectionMatrix();
+    private:
+    struct android_app* mApp;    
 };
 
 #endif

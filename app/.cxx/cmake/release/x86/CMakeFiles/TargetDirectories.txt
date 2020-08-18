@@ -5,3 +5,5 @@
 /home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/x86/glm/CMakeFiles/rebuild_cache.dir
 /home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/x86/glm/CMakeFiles/glm.dir
 /home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/x86/glm/CMakeFiles/edit_cache.dir
+/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/x86/bin/CMakeFiles/rebuild_cache.dir
+/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/x86/bin/CMakeFiles/edit_cache.dir

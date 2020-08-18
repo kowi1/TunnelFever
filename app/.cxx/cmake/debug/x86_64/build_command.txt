@@ -16,5 +16,6 @@ arguments :
 -G Ninja
 -DCMAKE_MAKE_PROGRAM=/usr/bin/ninja
 -DANDROID_STL=c++_static
+-DFIREBASE_CPP_SDK_DIR=/usr/lib/firebase_cpp_sdk
 jvmArgs : 
 

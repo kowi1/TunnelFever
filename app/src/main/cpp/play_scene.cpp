@@ -20,6 +20,7 @@
 #include "our_shader.hpp"
 #include "play_scene.hpp"
 #include "util.hpp"
+#include "common.hpp"
 #include "welcome_scene.hpp"
 #include "welcome_scene.hpp"
 
@@ -136,6 +137,89 @@ PlayScene::PlayScene() : Scene() {
         ShowMenu(MENU_LEVEL);
     }
 }
+
+
+PlayScene::PlayScene(struct android_app* app) : Scene() {
+    mApp=app;
+    mOurShader = NULL;
+    mTrivialShader = NULL;
+    mTextRenderer = NULL;
+    mShapeRenderer = NULL;
+    mShipSteerX = mShipSteerZ = 0.0f;
+    mFilteredSteerX = mFilteredSteerZ = 0.0f;
+
+    mPlayerDir = glm::vec3(0.0f, 1.0f, 0.0f); // forward
+    mDifficulty = 0;
+    mUseCloudSave = false;
+
+    mCubeGeom = NULL;
+    mTunnelGeom = NULL;
+
+    mObstacleCount = 0;
+    mFirstObstacle = 0;
+    mFirstSection = 0;
+    mSteering = STEERING_NONE;
+    mPointerId = -1;
+    mPointerAnchorX = mPointerAnchorY = 0.0f;
+
+    mWallTexture = NULL;
+
+    memset(mMenuItemText, 0, sizeof(mMenuItemText));
+    mMenuItemText[MENUITEM_UNPAUSE] = S_UNPAUSE;
+    mMenuItemText[MENUITEM_QUIT] = S_QUIT;
+    mMenuItemText[MENUITEM_START_OVER] = S_START_OVER;
+    mMenuItemText[MENUITEM_RESUME] = S_RESUME;
+
+    memset(mMenuItems, 0, sizeof(mMenuItems));
+    mMenuItemCount = 0;
+
+    mMenu = MENU_NONE;
+    mMenuSel = 0;
+
+    mSignText = NULL;
+    mSignTimeLeft = 0.0f;
+
+    mShowedHowto = false;
+    mLifeGeom = NULL;
+
+    mLives = PLAYER_LIVES;
+
+    mRollAngle = 0.0f;
+
+    mPlayerSpeed = 0.0f;
+    mBlinkingHeart = false;
+    mGameStartTime = Clock();
+
+    mBonusInARow = 0;
+    mLastCrashSection = -1;
+
+    mFrameClock.SetMaxDelta(MAX_DELTA_T);
+    mLastAmbientBeepEmitted = 0;
+    mMenuTouchActive = false;
+
+    mCheckpointSignPending = false;
+
+    SetScore(0);
+
+    /*
+     * where do I put the program???
+     */
+    const char *savePath = "/mnt/sdcard/com.google.example.games.tunnel.fix";
+    int len = strlen(savePath) + strlen(SAVE_FILE_NAME) + 3;
+    mSaveFileName = new char[len];
+    strcpy(mSaveFileName, savePath);
+    strcat(mSaveFileName, "/");
+    strcat(mSaveFileName, SAVE_FILE_NAME);
+    LOGD("Save file name: %s", mSaveFileName);
+    LoadProgress();
+
+    if (mSavedCheckpoint) {
+        // start with the menu that asks whether or not to start from the saved level
+        // or start over from scratch
+        ShowMenu(MENU_LEVEL);
+    }
+}
+
 
 void PlayScene::LoadProgress() {
     // try to load save file
@@ -689,8 +773,9 @@ void PlayScene::DetectCollisions(float previousY) {
             SfxMan::GetInstance()->PlayTone(TONE_CRASHED);
         } else {
             // say "Game Over"
-            ShowSign(S_GAME_OVER, SIGN_DURATION_GAME_OVER);
-            SfxMan::GetInstance()->PlayTone(TONE_GAME_OVER);
+            BuyLife();
+           // ShowSign(S_GAME_OVER, SIGN_DURATION_GAME_OVER);
+           // SfxMan::GetInstance()->PlayTone(TONE_GAME_OVER);
             mGameOverExpire = Clock() + GAME_OVER_EXPIRE;
         }
         mPlayerPos.y = obsMin - PLAYER_RECEDE_AFTER_COLLISION;
@@ -868,3 +953,24 @@ void PlayScene::UpdateProjectionMatrix() {
             RENDER_FAR_CLIP);
 }
 
+void PlayScene::BuyLife() 
+{
+    JNIEnv * env=mApp->activity->env;
+
+mApp->activity->vm->AttachCurrentThread(&env, NULL);
+
+jobject lNativeActivity = mApp->activity->clazz;
+jclass intentClass = env->FindClass("android/content/Intent");
+jstring actionString =env->NewStringUTF("com.joyholdings.tunnel.BillingActivity");
+jmethodID newIntent = env->GetMethodID(intentClass, "<init>", "()V");
+jobject intent = env->AllocObject(intentClass);
+env->CallVoidMethod(intent, newIntent);
+jmethodID setAction = env->GetMethodID(intentClass, "setAction","(Ljava/lang/String;)Landroid/content/Intent;");
+env->CallObjectMethod(intent, setAction, actionString);
+jclass activityClass = env->FindClass("android/app/Activity");
+jmethodID startActivity = env->GetMethodID(activityClass,"startActivity", "(Landroid/content/Intent;)V");
+jobject intentObject = env->NewObject(intentClass,newIntent);
+env->CallObjectMethod(intentObject, setAction,actionString);
+env->CallVoidMethod(lNativeActivity, startActivity, intentObject);
+mApp->activity->vm->DetachCurrentThread();
+}

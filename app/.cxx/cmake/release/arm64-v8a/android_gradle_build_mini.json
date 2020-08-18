@@ -1,6 +1,7 @@
 {
   "buildFiles": [
     "/usr/lib/Android/ndk/build/cmake/platforms.cmake",
+    "/usr/lib/firebase_cpp_sdk/CMakeLists.txt",
     "/home/deji/Documents/endless-tunnel/app/src/main/cpp/glm/CMakeLists.txt",
     "/usr/lib/Android/ndk/build/cmake/android.toolchain.cmake",
     "/home/deji/Documents/endless-tunnel/app/src/main/cpp/CMakeLists.txt"

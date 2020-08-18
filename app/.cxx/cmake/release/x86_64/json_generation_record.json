@@ -17,19 +17,7 @@
   },
   {
     "level": "INFO",
-    "message": "  - /mnt/c/users/olukowi/android/ndk/21.0.6113669/build/cmake/platforms.cmake"
-  },
-  {
-    "level": "INFO",
-    "message": "  - /mnt/c/users/olukowi/downloads/ndk-samples-master/ndk-samples-master/endless-tunnel/app/src/main/cpp/glm/CMakeLists.txt"
-  },
-  {
-    "level": "INFO",
-    "message": "  - /mnt/c/users/olukowi/downloads/ndk-samples-master/ndk-samples-master/endless-tunnel/app/src/main/cpp/CMakeLists.txt"
-  },
-  {
-    "level": "INFO",
-    "message": "  - /mnt/c/users/olukowi/android/ndk/21.0.6113669/build/cmake/android.toolchain.cmake"
+    "message": "  - /home/deji/Documents/endless-tunnel/app/src/main/cpp/CMakeLists.txt"
   },
   {
     "level": "INFO",
@@ -41,7 +29,7 @@
   },
   {
     "level": "INFO",
-    "message": "executing cmake Executable : /usr/bin/cmake\narguments : \n-H/home/deji/Documents/endless-tunnel/app/src/main/cpp\n-B/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/x86_64\n-DANDROID_ABI\u003dx86_64\n-DANDROID_PLATFORM\u003dandroid-16\n-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/release/obj/x86_64\n-DCMAKE_BUILD_TYPE\u003dRelease\n-DANDROID_NDK\u003d/usr/lib/Android/ndk\n-DCMAKE_SYSTEM_NAME\u003dAndroid\n-DCMAKE_ANDROID_ARCH_ABI\u003dx86_64\n-DCMAKE_SYSTEM_VERSION\u003d16\n-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\n-DCMAKE_ANDROID_NDK\u003d/usr/lib/Android/ndk\n-DCMAKE_TOOLCHAIN_FILE\u003d/usr/lib/Android/ndk/build/cmake/android.toolchain.cmake\n-G Ninja\n-DCMAKE_MAKE_PROGRAM\u003d/usr/bin/ninja\n-DANDROID_STL\u003dc++_static\njvmArgs : \n\n"
+    "message": "executing cmake Executable : /usr/bin/cmake\narguments : \n-H/home/deji/Documents/endless-tunnel/app/src/main/cpp\n-B/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/x86_64\n-DANDROID_ABI\u003dx86_64\n-DANDROID_PLATFORM\u003dandroid-16\n-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/release/obj/x86_64\n-DCMAKE_BUILD_TYPE\u003dRelease\n-DANDROID_NDK\u003d/usr/lib/Android/ndk\n-DCMAKE_SYSTEM_NAME\u003dAndroid\n-DCMAKE_ANDROID_ARCH_ABI\u003dx86_64\n-DCMAKE_SYSTEM_VERSION\u003d16\n-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\n-DCMAKE_ANDROID_NDK\u003d/usr/lib/Android/ndk\n-DCMAKE_TOOLCHAIN_FILE\u003d/usr/lib/Android/ndk/build/cmake/android.toolchain.cmake\n-G Ninja\n-DCMAKE_MAKE_PROGRAM\u003d/usr/bin/ninja\n-DANDROID_STL\u003dc++_static\n-DFIREBASE_CPP_SDK_DIR\u003d/usr/lib/firebase_cpp_sdk\njvmArgs : \n\n"
   },
   {
     "level": "INFO",

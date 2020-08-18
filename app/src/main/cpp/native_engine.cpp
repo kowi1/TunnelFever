@@ -519,7 +519,7 @@ void NativeEngine::DoFrame() {
     // if this is the first frame, install the welcome scene
     if (mIsFirstFrame) {
         mIsFirstFrame = false;
-        mgr->RequestNewScene(new WelcomeScene());
+        mgr->RequestNewScene(new WelcomeScene(mApp));
     }
 
     // render!
