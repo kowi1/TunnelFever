@@ -21,6 +21,7 @@
       package="com.joyholdings.tunnel">
 
 <uses-permission android:name="com.android.vending.BILLING" />
+<uses-permission android:name="android.permission.INTERNET" />
   <application
       android:allowBackup="false"
       android:fullBackupContent="false"

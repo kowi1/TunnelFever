@@ -22,6 +22,7 @@
 #include "ui_scene.hpp"
 #include "util.hpp"
 
+
 /* The "welcome scene" (main menu) */
 class WelcomeScene : public UiScene {
     protected:

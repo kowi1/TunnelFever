@@ -137,4 +137,3 @@ void WelcomeScene::OnCreateWidgets() {
 void WelcomeScene::OnKillGraphics() {
     UiScene::OnKillGraphics();
 }
-

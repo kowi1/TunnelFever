@@ -26,6 +26,9 @@
 
 class OurShader;
 
+static int life=0;
+static bool isLifeUpdated=false;
+
 /* This is the gameplay scene -- the scene that shows the player flying down
  * the infinite tunnel, dodging obstacles, collecting bonuses and being awesome. */
 class PlayScene : public Scene {
@@ -64,7 +67,7 @@ class PlayScene : public Scene {
 
         // lives left
         int mLives;
-
+        
         // player's score. As a trivial form of protection (just to give crackers a
         // hard time), we *actually* store the score encrypted in mEncryptedScore, but have a
         // fake variable mFakeScore that stores a copy of it. This serves as a honeypot to
@@ -264,6 +267,7 @@ class PlayScene : public Scene {
         void SaveProgress();
 
         void BuyLife();
+            
 
         // returns whether or not this level is a "checkpoint level" (that is,
         // where progress should be saved)

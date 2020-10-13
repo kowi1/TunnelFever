@@ -19,70 +19,128 @@ package com.joyholdings.tunnel;
 import android.app.Activity;
 import android.os.Bundle;
 import android.content.Intent;
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingClient.BillingResponseCode;
+import java.util.List;
+import java.util.ArrayList;
+import com.android.billingclient.api.SkuDetailsParams;
+import com.android.billingclient.api.SkuDetails;
+import com.android.billingclient.api.SkuDetailsResponseListener;
+import com.android.billingclient.api.BillingClient.SkuType;
+import com.android.billingclient.api.BillingFlowParams;
+import com.android.billingclient.api.ConsumeParams;
+import com.android.billingclient.api.ConsumeResponseListener;
+import android.content.Context;
 
-import com.anjlab.android.iab.v3.BillingProcessor;
-import com.anjlab.android.iab.v3.SkuDetails;
-import com.anjlab.android.iab.v3.TransactionDetails;
+public class BillingActivity extends Activity {
 
-public class BillingActivity extends Activity implements BillingProcessor.IBillingHandler {
- 
-    BillingProcessor bp;
+    private PurchasesUpdatedListener purchasesUpdatedListener;
+    private BillingClient billingClient;
+    private Context activityContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      //setContentView(R.layout.activity_main);
-  
-      bp = new BillingProcessor(this, "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkmMaZqgRWRWhfLcK5mHunr4sLcPHZ8gngtjgnb7prqBFf/5WA2EIzeUPAGV6Z1aWpAD3ILivbk6PCbzIfNnyx6Jym/ldpunMsn+ZoUge+rsl6zmvXTmA/ZY++U3n/HRJi0ccxIhH+1a3juqGnjJublWCoN+jSOqvMWuaQoaW0l86wGuxxz26Uipm1/cjLivjpXMUdALT4t4WiBrVItcxSym8O/oael+7LKwIwik5kv8uBpweCZ+AkZpmbSYEXMxTZNIJKeGGQg5xewCb1ynr/gGJsAMQGejsRM0CRGNUR9aQ+/BYpwQMkq2+8aQTWnotn9hIjLcCLVaRR05UO2nDxwIDAQAB", this);
-      bp.initialize();
-      // or bp = BillingProcessor.newBillingProcessor(this, "YOUR LICENSE KEY FROM GOOGLE PLAY CONSOLE HERE", this);
-      // See below on why this is a useful alternative
-    }
-      
-    // IBillingHandler implementation
-      
-    @Override
-    public void onBillingInitialized() {
-      /*
-      * Called when BillingProcessor was initialized and it's ready to purchase 
-      
-      */
-      //bp.consumePurchase("life_pack9");
-      bp.purchase(this,"life_pack9");
-     
-      
-    }
-      
-    @Override
-    public void onProductPurchased(String productId, TransactionDetails details) {
-      /*
-      * Called when requested PRODUCT ID was successfully purchased
-      */
-      bp.consumePurchase("life_pack9");
-      this.finish();
-    }
-      
-    @Override
-    public void onBillingError(int errorCode, Throwable error) {
-      /*
-      * Called when some error occurred. See Constants class for more details
-      * 
-      * Note - this includes handling the case where the user canceled the buy dialog:
-      * errorCode = Constants.BILLING_RESPONSE_RESULT_USER_CANCELED
-      */
-    }
-      
-    @Override
-    public void onPurchaseHistoryRestored() {
-      /*
-      * Called when purchase history was restored and the list of all owned PRODUCT ID's 
-      * was loaded from Google Play
-      */
+     //setContentView(R.layout.activity_main);    
+    purchasesUpdatedListener = new PurchasesUpdatedListener() {
+        @Override
+       public void onPurchasesUpdated(BillingResult billingResult, List<Purchase> purchases) {
+            // To be implemented in a later section.
+            if (billingResult.getResponseCode() == BillingResponseCode.OK
+        && purchases != null) {
+        for (Purchase purchase : purchases) {
+            handlePurchase(purchase);
+        }
+    } else if (billingResult.getResponseCode() == BillingResponseCode.USER_CANCELED) {
+        // Handle an error caused by a user cancelling the purchase flow.
+        UpdateLife(0);
+        Activity billingActivity=(Activity)activityContext;
+                    billingActivity.finish();
+    } else {
+        // Handle any other error codes.
+       UpdateLife(0);
+        Activity billingActivity=(Activity)activityContext;
+                    billingActivity.finish();
     }
 
+        }
+    };
+    activityContext=this;
+    billingClient = BillingClient.newBuilder(this)
+        .setListener(purchasesUpdatedListener)
+        .enablePendingPurchases()
+        .build();
+         
+     billingClient.startConnection(new BillingClientStateListener() {
+        @Override
+        public void onBillingSetupFinished(BillingResult billingResult) {
+            if (billingResult.getResponseCode() ==  BillingResponseCode.OK) {
+                // The BillingClient is ready. You can query purchases here.
 
-static {
-    System.loadLibrary("game");
-}
+                List<String> skuList = new ArrayList<> ();
+                skuList.add("donation20");
+                //skuList.add("gas");
+                SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
+                params.setSkusList(skuList).setType(SkuType.INAPP);
+                billingClient.querySkuDetailsAsync(params.build(),
+                    new SkuDetailsResponseListener() {
+                        @Override
+                        public void onSkuDetailsResponse(BillingResult billingResult,
+                                List<SkuDetails> skuDetailsList) {
+                            // Process the result.
+                        if(skuDetailsList.get(0)!=null){
+                            BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
+                            .setSkuDetails(skuDetailsList.get(0))
+                            .build();
+                        int responseCode = billingClient.launchBillingFlow((Activity)activityContext, billingFlowParams).getResponseCode();
+                        
+                                }
+                            }
+                    });
+            }
+        }
+        @Override
+        public void onBillingServiceDisconnected() {
+            // Try to restart the connection on the next request to
+            // Google Play by calling the startConnection() method.
+        }
+    });     
+   finish();
+ }
+      
+    void handlePurchase(Purchase purchase) {
+        // Purchase retrieved from BillingClient#queryPurchases or your PurchasesUpdatedListener.
+       // Purchase purchase = ...;
+    
+        // Verify the purchase.
+        // Ensure entitlement was not already granted for this purchaseToken.
+        // Grant entitlement to the user.
+    
+        ConsumeParams consumeParams =
+            ConsumeParams.newBuilder()
+                .setPurchaseToken(purchase.getPurchaseToken())
+                .build();
+    
+        ConsumeResponseListener listener = new ConsumeResponseListener() {
+            @Override
+            public void onConsumeResponse(BillingResult billingResult, String purchaseToken) {
+                if (billingResult.getResponseCode() == BillingResponseCode.OK) {
+                    // Handle the success of the consume operation.
+                    UpdateLife(3);
+                    Activity billingActivity=(Activity)activityContext;
+                    billingActivity.finish();
+                }
+            }
+        };
+                billingClient.consumeAsync(consumeParams, listener);
+    }
+    public native String  UpdateLife(int life_nos);
 
+    static {
+        System.loadLibrary("game");
+    }
 }

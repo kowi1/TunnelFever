@@ -58,6 +58,7 @@ static const char* TONE_BONUS[] = {
     "d70 f550. f650. f750. f850."
 };
 
+
 PlayScene::PlayScene() : Scene() {
     mOurShader = NULL;
     mTrivialShader = NULL;
@@ -65,11 +66,9 @@ PlayScene::PlayScene() : Scene() {
     mShapeRenderer = NULL;
     mShipSteerX = mShipSteerZ = 0.0f;
     mFilteredSteerX = mFilteredSteerZ = 0.0f;
-
     mPlayerDir = glm::vec3(0.0f, 1.0f, 0.0f); // forward
     mDifficulty = 0;
     mUseCloudSave = false;
-
     mCubeGeom = NULL;
     mTunnelGeom = NULL;
 
@@ -116,7 +115,6 @@ PlayScene::PlayScene() : Scene() {
     mMenuTouchActive = false;
 
     mCheckpointSignPending = false;
-
     SetScore(0);
 
     /*
@@ -151,7 +149,6 @@ PlayScene::PlayScene(struct android_app* app) : Scene() {
     mPlayerDir = glm::vec3(0.0f, 1.0f, 0.0f); // forward
     mDifficulty = 0;
     mUseCloudSave = false;
-
     mCubeGeom = NULL;
     mTunnelGeom = NULL;
 
@@ -198,7 +195,6 @@ PlayScene::PlayScene(struct android_app* app) : Scene() {
     mMenuTouchActive = false;
 
     mCheckpointSignPending = false;
-
     SetScore(0);
 
     /*
@@ -478,7 +474,7 @@ void PlayScene::DoFrame() {
 
     // did the game expire?
     if (mLives <= 0 && Clock() > mGameOverExpire) {
-        SceneManager::GetInstance()->RequestNewScene(new WelcomeScene());
+        SceneManager::GetInstance()->RequestNewScene(new WelcomeScene(mApp));
 
     }
 
@@ -755,28 +751,41 @@ void PlayScene::DetectCollisions(float previousY) {
     float obsCenter = GetSectionCenterY(mFirstSection);
     float obsMin = obsCenter - OBS_BOX_SIZE;
     float curY = mPlayerPos.y;
-
+    if(isLifeUpdated){
+    mLives=life;
+    isLifeUpdated=false;}
     if (!o || !(previousY < obsMin && curY >= obsMin)) {
         // no collision
+         
         return;
     }
-
+   
     // what row/column is the player on?
     int col = o->GetColAt(mPlayerPos.x);
     int row = o->GetRowAt(mPlayerPos.z);
-
+    if(o->grid[col][row] && (mLives-1==0))
+    {   
+        OnBackKeyPressed();
+        isLifeUpdated=true;
+       // mLives=mLives+life;
+        return;
+    }
     if (o->grid[col][row]) {
         // crashed against obstacle
+       
         mLives--;
         if (mLives > 0) {
             ShowSign(S_OUCH, SIGN_DURATION);
             SfxMan::GetInstance()->PlayTone(TONE_CRASHED);
         } else {
-            // say "Game Over"
-            BuyLife();
-           // ShowSign(S_GAME_OVER, SIGN_DURATION_GAME_OVER);
-           // SfxMan::GetInstance()->PlayTone(TONE_GAME_OVER);
+            //say "Game Over"
+           
+        
+        
+            ShowSign(S_GAME_OVER, SIGN_DURATION_GAME_OVER);
+            SfxMan::GetInstance()->PlayTone(TONE_GAME_OVER);
             mGameOverExpire = Clock() + GAME_OVER_EXPIRE;
+            
         }
         mPlayerPos.y = obsMin - PLAYER_RECEDE_AFTER_COLLISION;
         mPlayerSpeed = PLAYER_SPEED_AFTER_COLLISION;
@@ -844,6 +853,7 @@ bool PlayScene::OnBackKeyPressed() {
         ShowMenu(MENU_NONE);
     } else {
         // enter pause menu
+         BuyLife();
         ShowMenu(MENU_PAUSE);
     }
     return true;
@@ -908,7 +918,7 @@ void PlayScene::ShowMenu(int menu) {
 void PlayScene::HandleMenu(int menuItem) {
     switch (menuItem) {
         case MENUITEM_QUIT:
-            SceneManager::GetInstance()->RequestNewScene(new WelcomeScene());
+            SceneManager::GetInstance()->RequestNewScene(new WelcomeScene(mApp));
             break;
         case MENUITEM_UNPAUSE:
             ShowMenu(MENU_NONE);
@@ -939,7 +949,7 @@ void PlayScene::ShowLevelSign() {
 
 void PlayScene::OnPause() {
     if (mMenu == MENU_NONE) {
-        ShowMenu(MENU_PAUSE);
+       // ShowMenu(MENU_PAUSE);
     }
 }
 
@@ -955,7 +965,7 @@ void PlayScene::UpdateProjectionMatrix() {
 
 void PlayScene::BuyLife() 
 {
-    JNIEnv * env=mApp->activity->env;
+JNIEnv * env=mApp->activity->env;
 
 mApp->activity->vm->AttachCurrentThread(&env, NULL);
 
@@ -971,6 +981,24 @@ jclass activityClass = env->FindClass("android/app/Activity");
 jmethodID startActivity = env->GetMethodID(activityClass,"startActivity", "(Landroid/content/Intent;)V");
 jobject intentObject = env->NewObject(intentClass,newIntent);
 env->CallObjectMethod(intentObject, setAction,actionString);
-env->CallVoidMethod(lNativeActivity, startActivity, intentObject);
+env->CallVoidMethod( lNativeActivity, startActivity, intentObject);
+env->DeleteLocalRef( intent ); 
+env->DeleteLocalRef( intentObject); 
+env->DeleteLocalRef( activityClass );
+env->DeleteLocalRef( intentClass );
+
+
 mApp->activity->vm->DetachCurrentThread();
+}
+
+
+
+extern "C" JNIEXPORT jstring JNICALL
+Java_com_joyholdings_tunnel_BillingActivity_UpdateLife( JNIEnv* env,
+                                                  jobject thiz,jint life_nos )
+{
+    
+life=life_nos;
+isLifeUpdated=true;
+return (*env).NewStringUTF("updated");
 }
