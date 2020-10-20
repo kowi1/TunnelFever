@@ -1,7 +1,0 @@
-Executable : /usr/bin/ninja
-arguments : 
--C
-/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/x86_64
-game
-jvmArgs : 
-

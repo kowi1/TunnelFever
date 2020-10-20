@@ -1,9 +1,0 @@
-/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86_64/CMakeFiles/edit_cache.dir
-/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86_64/CMakeFiles/rebuild_cache.dir
-/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86_64/CMakeFiles/native_app_glue.dir
-/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86_64/CMakeFiles/game.dir
-/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86_64/glm/CMakeFiles/rebuild_cache.dir
-/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86_64/glm/CMakeFiles/glm.dir
-/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86_64/glm/CMakeFiles/edit_cache.dir
-/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86_64/bin/CMakeFiles/rebuild_cache.dir
-/home/deji/Documents/endless-tunnel/app/.cxx/cmake/debug/x86_64/bin/CMakeFiles/edit_cache.dir
