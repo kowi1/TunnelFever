@@ -223,7 +223,7 @@ class PlayScene : public Scene {
 
         // renders the currently active menu
         void RenderMenu();
-
+         bool BuyLifeInit();
         // Shift tunnel sections if needed (this means discarding the ones the
         // player has already past and generating the obstacles for the new ones
         // that came into view)

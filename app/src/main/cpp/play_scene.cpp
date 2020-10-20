@@ -200,7 +200,8 @@ PlayScene::PlayScene(struct android_app* app) : Scene() {
     /*
      * where do I put the program???
      */
-    const char *savePath = "/mnt/sdcard/com.google.example.games.tunnel.fix";
+    const char *savePath = mApp->activity->internalDataPath;
+   // const char *savePath = "/mnt/sdcard/com.google.example.games.tunnel.fix";
     int len = strlen(savePath) + strlen(SAVE_FILE_NAME) + 3;
     mSaveFileName = new char[len];
     strcpy(mSaveFileName, savePath);
@@ -765,7 +766,7 @@ void PlayScene::DetectCollisions(float previousY) {
     int row = o->GetRowAt(mPlayerPos.z);
     if(o->grid[col][row] && (mLives-1==0))
     {   
-        OnBackKeyPressed();
+        BuyLifeInit();
         isLifeUpdated=true;
        // mLives=mLives+life;
         return;
@@ -779,9 +780,6 @@ void PlayScene::DetectCollisions(float previousY) {
             SfxMan::GetInstance()->PlayTone(TONE_CRASHED);
         } else {
             //say "Game Over"
-           
-        
-        
             ShowSign(S_GAME_OVER, SIGN_DURATION_GAME_OVER);
             SfxMan::GetInstance()->PlayTone(TONE_GAME_OVER);
             mGameOverExpire = Clock() + GAME_OVER_EXPIRE;
@@ -845,6 +843,21 @@ void PlayScene::DetectCollisions(float previousY) {
 }
 
 bool PlayScene::OnBackKeyPressed() {
+    if (mMenu) {
+        // reset frame clock so that the animation doesn't jump:
+        mFrameClock.Reset();
+
+        // leave menu
+        ShowMenu(MENU_NONE);
+    } else {
+        // enter pause menu
+       //  BuyLife();
+        ShowMenu(MENU_PAUSE);
+    }
+    return true;
+}
+
+bool PlayScene::BuyLifeInit() {
     if (mMenu) {
         // reset frame clock so that the animation doesn't jump:
         mFrameClock.Reset();

@@ -84,3 +84,13 @@
 1108	1226	1598392742988223123	/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libgame.so	207a36c8d64f0f17
 7	967	1598392997981868726	CMakeFiles/game.dir/play_scene.cpp.o	879fd8abeff9e2d6
 967	1065	1598392998077832732	/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libgame.so	207a36c8d64f0f17
+166	5795	1603193468591941827	CMakeFiles/game.dir/play_scene.cpp.o	879fd8abeff9e2d6
+5795	7162	1603193469987968058	/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libgame.so	207a36c8d64f0f17
+357	5685	1603211412279137850	CMakeFiles/game.dir/welcome_scene.cpp.o	1fa7c959440e480d
+354	5697	1603211412283137865	CMakeFiles/game.dir/dialog_scene.cpp.o	b829a54a90b9a15b
+355	6063	1603211412607139124	CMakeFiles/game.dir/play_scene.cpp.o	879fd8abeff9e2d6
+6063	7292	1603211413927144256	/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libgame.so	207a36c8d64f0f17
+4	1078	1603211548299669069	CMakeFiles/game.dir/play_scene.cpp.o	879fd8abeff9e2d6
+1078	1179	1603211548395669446	/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libgame.so	207a36c8d64f0f17
+3	1585	1603212472819205391	CMakeFiles/game.dir/play_scene.cpp.o	879fd8abeff9e2d6
+1585	1734	1603212472967205538	/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libgame.so	207a36c8d64f0f17

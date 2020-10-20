@@ -1,3 +1,2 @@
 ninja: Entering directory `/home/deji/Documents/endless-tunnel/app/.cxx/cmake/release/x86_64'
-[1/2] Building CXX object CMakeFiles/game.dir/play_scene.cpp.o
-[2/2] Linking CXX shared library /home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/release/obj/x86_64/libgame.so
+ninja: no work to do.

@@ -66,3 +66,13 @@
 777	857	1598392745776300793	/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/debug/obj/x86_64/libgame.so	cbb28e892be548a4
 3	779	1598393000720849691	CMakeFiles/game.dir/play_scene.cpp.o	2fe14af615e51259
 779	859	1598393000796821657	/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/debug/obj/x86_64/libgame.so	cbb28e892be548a4
+41	891	1603193477660112198	CMakeFiles/game.dir/play_scene.cpp.o	2fe14af615e51259
+892	2152	1603193478900135493	/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/debug/obj/x86_64/libgame.so	cbb28e892be548a4
+40	1016	1603211423499181480	CMakeFiles/game.dir/welcome_scene.cpp.o	1031b2675aa7a3bf
+39	1039	1603211423539181636	CMakeFiles/game.dir/dialog_scene.cpp.o	d2c03d414df7dc73
+39	1269	1603211423775182554	CMakeFiles/game.dir/play_scene.cpp.o	2fe14af615e51259
+1269	2514	1603211424983187254	/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/debug/obj/x86_64/libgame.so	cbb28e892be548a4
+4	819	1603211551147680241	CMakeFiles/game.dir/play_scene.cpp.o	2fe14af615e51259
+819	912	1603211551235680587	/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/debug/obj/x86_64/libgame.so	cbb28e892be548a4
+3	833	1603212475939208530	CMakeFiles/game.dir/play_scene.cpp.o	2fe14af615e51259
+833	930	1603212476027208619	/home/deji/Documents/endless-tunnel/app/build/intermediates/cmake/debug/obj/x86_64/libgame.so	cbb28e892be548a4
