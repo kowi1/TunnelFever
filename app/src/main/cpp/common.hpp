@@ -30,6 +30,7 @@ extern "C" {
 #include "glm/glm.hpp"
 #include "glm/gtc/type_ptr.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "NDKHelper.h"
 
 #define DEBUG_TAG "EndlessTunnel:Native"
 #define LOGD(...) ((void)__android_log_print(ANDROID_LOG_DEBUG, DEBUG_TAG, __VA_ARGS__))

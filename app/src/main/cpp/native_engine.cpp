@@ -22,7 +22,8 @@
 
 // verbose debug logs on?
 #define VERBOSE_LOGGING 1
-
+#define HELPER_CLASS_NAME \
+  "com/joyholdings/tunnel/NDKHelper"  // Class name of helper function
 #if VERBOSE_LOGGING
     #define VLOGD LOGD
 #else
@@ -60,6 +61,8 @@ NativeEngine::NativeEngine(struct android_app *app) {
 
     VLOGD("NativeEngine: querying API level.");
     LOGD("NativeEngine: API version %d.", mApiVersion);
+    // Init helper functions
+  ndk_helper::JNIHelper::Init(app->activity, HELPER_CLASS_NAME);
 }
 
 NativeEngine* NativeEngine::GetInstance() {

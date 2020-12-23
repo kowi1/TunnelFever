@@ -28,12 +28,23 @@
 #include "data/cube_geom.inl"
 #include "data/strings.inl"
 #include "data/tunnel_geom.inl"
+#include "data/teapot.inl"
+
 
 #define WALL_TEXTURE_SIZE 64
+
+
+
+static GLfloat TEAPOT_GEOM[240];
+static GLushort TEAPOT_GEOM_INDICES[24];
+static const int TEAPOT_GEOM_COLOR_OFFSET = 6 * sizeof(GLfloat);
+static const int TEAPOT_GEOM_TEXCOORD_OFFSET = 3 * sizeof(GLfloat);
+static const int TEAPOT_GEOM_STRIDE = 10 * sizeof(GLfloat);
 
 // colors for menus
 static const float MENUITEM_SEL_COLOR[] = { 1.0f, 1.0f, 0.0f };
 static const float MENUITEM_COLOR[] = { 1.0f, 1.0f, 1.0f };
+static glm::mat4 teapotModelMat(1.0f);
 
 // obstacle colors
 static const float OBS_COLORS[] = {
@@ -64,6 +75,7 @@ PlayScene::PlayScene() : Scene() {
     mTrivialShader = NULL;
     mTextRenderer = NULL;
     mShapeRenderer = NULL;
+    mTeapotRenderer= new TexturedTeapotRender();
     mShipSteerX = mShipSteerZ = 0.0f;
     mFilteredSteerX = mFilteredSteerZ = 0.0f;
     mPlayerDir = glm::vec3(0.0f, 1.0f, 0.0f); // forward
@@ -71,7 +83,6 @@ PlayScene::PlayScene() : Scene() {
     mUseCloudSave = false;
     mCubeGeom = NULL;
     mTunnelGeom = NULL;
-
     mObstacleCount = 0;
     mFirstObstacle = 0;
     mFirstSection = 0;
@@ -143,9 +154,10 @@ PlayScene::PlayScene(struct android_app* app) : Scene() {
     mTrivialShader = NULL;
     mTextRenderer = NULL;
     mShapeRenderer = NULL;
+    mTeapotRenderer= new TexturedTeapotRender();
+    mTeapotRenderer->Init(mApp->activity->assetManager);
     mShipSteerX = mShipSteerZ = 0.0f;
     mFilteredSteerX = mFilteredSteerZ = 0.0f;
-
     mPlayerDir = glm::vec3(0.0f, 1.0f, 0.0f); // forward
     mDifficulty = 0;
     mUseCloudSave = false;
@@ -161,6 +173,7 @@ PlayScene::PlayScene(struct android_app* app) : Scene() {
 
     mWallTexture = NULL;
 
+    InitTeapot();
     memset(mMenuItemText, 0, sizeof(mMenuItemText));
     mMenuItemText[MENUITEM_UNPAUSE] = S_UNPAUSE;
     mMenuItemText[MENUITEM_QUIT] = S_QUIT;
@@ -309,6 +322,7 @@ static unsigned char* _gen_wall_texture() {
     for (y = 0, p = pixel_data; y < WALL_TEXTURE_SIZE; y++) {
         for (x = 0; x < WALL_TEXTURE_SIZE; x++, p += 3) {
             p[0] = p[1] = p[2] = 128 + ((x > 2 && y > 2) ? Random(128) : 0);
+            
         }
     }
     return pixel_data;
@@ -331,8 +345,14 @@ void PlayScene::OnStartGraphics() {
     mTunnelGeom->vbuf->SetColorsOffset(TUNNEL_GEOM_COLOR_OFFSET);
     mTunnelGeom->vbuf->SetTexCoordsOffset(TUNNEL_GEOM_TEXCOORD_OFFSET);
 
+
+
+
     // build cube geometry (to draw obstacles)
-    mCubeGeom = new SimpleGeom(new VertexBuf(CUBE_GEOM, sizeof(CUBE_GEOM),CUBE_GEOM_STRIDE));
+   // mCubeGeom = new SimpleGeom(new VertexBuf(teapotPositions, sizeof(teapotPositions),6));
+    mCubeGeom = new SimpleGeom(
+                     new VertexBuf(CUBE_GEOM, sizeof(CUBE_GEOM),CUBE_GEOM_STRIDE));//,
+                     //new IndexBuf(CUBE_GEOM_INDICES, sizeof(CUBE_GEOM_INDICES)));
     mCubeGeom->vbuf->SetColorsOffset(CUBE_GEOM_COLOR_OFFSET);
     mCubeGeom->vbuf->SetTexCoordsOffset(CUBE_GEOM_TEXCOORD_OFFSET);
 
@@ -374,13 +394,18 @@ void PlayScene::DoFrame() {
 
     // rotate the view matrix according to current roll angle
     glm::vec3 upVec = glm::vec3(-sin(mRollAngle), 0, cos(mRollAngle));
-
+    glm::mat4 rotationMat(1); 
+    rotationMat = glm::rotate(rotationMat, 45.0f, glm::vec3(0.0, 0.0, 1.0));
+    rotationMat = glm::rotate(rotationMat, 45.0f, glm::vec3(0.0, 1.0, 0.0));
+    rotationMat = glm::rotate(rotationMat, 45.0f, glm::vec3(1.0, 0.0, 0.0));
     // set up view matrix according to player's ship position and direction
-    mViewMat = glm::lookAt(mPlayerPos, mPlayerPos + mPlayerDir, upVec);
+    mViewMat = glm::lookAt(glm::vec3(rotationMat*glm::vec4(mPlayerPos.x,mPlayerPos.y,mPlayerPos.z,1.0f)), glm::vec3(mPlayerPos.x + mPlayerDir.x,mPlayerPos.y + mPlayerDir.y+20.5,mPlayerPos.z + mPlayerDir.z), upVec);
 
     // render tunnel walls
     RenderTunnel();
-
+    glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPlayerPos.x, previousY+20.5f,mPlayerPos.z ));
+    modelMat = glm::scale(modelMat, glm::vec3(0.05f, 0.05f, 0.05f));
+    mTeapotRenderer->Render(mViewMat*modelMat, mProjMat);
     // render obstacles
     RenderObstacles();
 
@@ -571,6 +596,7 @@ void PlayScene::RenderObstacles() {
                     modelMat = glm::scale(modelMat, glm::vec3(OBS_BONUS_SIZE, OBS_BONUS_SIZE,
                             OBS_BONUS_SIZE));
                     modelMat = glm::rotate(modelMat, Clock() * 90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+                    teapotModelMat=modelMat;
                     mvpMat = mProjMat * mViewMat * modelMat;
                     mOurShader->SetTintColor(SineWave(0.8f, 1.0f, 0.5f, 0.0f),
                             SineWave(0.8f, 1.0f, 0.5f, 0.0f),
@@ -751,7 +777,7 @@ void PlayScene::DetectCollisions(float previousY) {
     Obstacle *o = GetObstacleAt(0);
     float obsCenter = GetSectionCenterY(mFirstSection);
     float obsMin = obsCenter - OBS_BOX_SIZE;
-    float curY = mPlayerPos.y;
+    float curY = mPlayerPos.y+20.5f;
     if(isLifeUpdated){
     mLives=life;
     isLifeUpdated=false;}
@@ -760,7 +786,7 @@ void PlayScene::DetectCollisions(float previousY) {
          
         return;
     }
-   
+    
     // what row/column is the player on?
     int col = o->GetColAt(mPlayerPos.x);
     int row = o->GetRowAt(mPlayerPos.z);
@@ -1014,4 +1040,29 @@ Java_com_joyholdings_tunnel_BillingActivity_UpdateLife( JNIEnv* env,
 life=life_nos;
 isLifeUpdated=true;
 return (*env).NewStringUTF("updated");
+}
+void PlayScene::InitTeapot(){
+  int j=0;
+   int k=0;
+  for (int i=0;i<24;i++ )
+  {
+    
+    TEAPOT_GEOM[j]=(GLfloat)teapotPositions[k]*0.5;
+    TEAPOT_GEOM[j+1]=(GLfloat)teapotPositions[k+1]*0.5;
+    TEAPOT_GEOM[j+2]=(GLfloat)teapotPositions[k+2]*0.5;
+    TEAPOT_GEOM[j+3]=0.7f;//(GLfloat)teapotTexCoords[k];
+    TEAPOT_GEOM[j+4]=0.7f;//(GLfloat)teapotTexCoords[k+1];
+    TEAPOT_GEOM[j+5]=0.7f;//(GLfloat)teapotTexCoords[k+2];
+    TEAPOT_GEOM[j+6]=0.7f;
+    TEAPOT_GEOM[j+7]=0.7f;
+    TEAPOT_GEOM[j+8]=0.7f;
+    TEAPOT_GEOM[j+9]=1.0f;
+    j+=10;
+    k+=8;
+    
+  }
+
+for (int i=0;i<24;i++ )
+  { TEAPOT_GEOM_INDICES[i]=(GLushort)teapotIndices[i];
+  }
 }

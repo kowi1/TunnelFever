@@ -27,6 +27,8 @@ set(target_name game)
 set(CMAKE_SHARED_LINKER_FLAGS
     "${CMAKE_SHARED_LINKER_FLAGS} -u ANativeActivity_onCreate")
 
+
+
 # Set common compiler options
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11 -Wall")
 add_definitions("-DGLM_FORCE_SIZE_T_LENGTH -DGLM_FORCE_RADIANS")
@@ -34,11 +36,16 @@ add_definitions("-DGLM_FORCE_SIZE_T_LENGTH -DGLM_FORCE_RADIANS")
 # Import the CMakeLists.txt for the glm library
 add_subdirectory(glm)
 
+get_filename_component(ndkHelperSrc ${CMAKE_CURRENT_SOURCE_DIR}/common/ndk_helper ABSOLUTE)
+add_subdirectory(${ndkHelperSrc}
+${CMAKE_CURRENT_SOURCE_DIR}/common/ndkHelperBin/${CMAKE_BUILD_TYPE}/${ANDROID_ABI})
+
 # now build app's shared lib
 add_library(game SHARED
      android_main.cpp
      anim.cpp
      ascii_to_geom.cpp
+     asset_util.cpp
      dialog_scene.cpp
      indexbuf.cpp
      input_util.cpp
@@ -53,9 +60,12 @@ add_library(game SHARED
      sfxman.cpp
      shader.cpp
      shape_renderer.cpp
+     teapot_renderer.cpp
      tex_quad.cpp
      text_renderer.cpp
+     texture_teapot.cpp
      texture.cpp
+     textured_teapot_render.cpp
      ui_scene.cpp
      util.cpp
      vertexbuf.cpp
@@ -64,12 +74,15 @@ add_library(game SHARED
 target_include_directories(game PRIVATE
      ${CMAKE_CURRENT_SOURCE_DIR}
      ${CMAKE_CURRENT_SOURCE_DIR}/data
+     ${CMAKE_CURRENT_SOURCE_DIR}/common/ndk_helper
+     ${CMAKE_CURRENT_SOURCE_DIR}/common/stb
      ${ANDROID_NDK}/sources/android/native_app_glue)
 
 # add lib dependencies
 target_link_libraries(game
      android
      native_app_glue
+     NdkHelper
      atomic
      EGL
      GLESv2

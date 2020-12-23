@@ -22,6 +22,7 @@
 #include "sfxman.hpp"
 #include "shape_renderer.hpp"
 #include "text_renderer.hpp"
+#include "textured_teapot_render.hpp"
 #include "util.hpp"
 
 class OurShader;
@@ -58,6 +59,7 @@ class PlayScene : public Scene {
         // shape and text renderers we use when rendering the HUD
         ShapeRenderer *mShapeRenderer;
         TextRenderer *mTextRenderer;
+        TexturedTeapotRender *mTeapotRenderer;
 
         // matrices
         glm::mat4 mViewMat, mProjMat;
@@ -228,7 +230,8 @@ class PlayScene : public Scene {
         // player has already past and generating the obstacles for the new ones
         // that came into view)
         void ShiftIfNeeded();
-
+        
+        void InitTeapot();
         // detect if the player hit obstacles or got the bonus
         void DetectCollisions(float previousY);
 
