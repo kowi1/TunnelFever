@@ -394,12 +394,13 @@ void PlayScene::DoFrame() {
 
     // rotate the view matrix according to current roll angle
     glm::vec3 upVec = glm::vec3(-sin(mRollAngle), 0, cos(mRollAngle));
-    glm::mat4 rotationMat(1); 
-    rotationMat = glm::rotate(rotationMat, 45.0f, glm::vec3(0.0, 0.0, 1.0));
-    rotationMat = glm::rotate(rotationMat, 45.0f, glm::vec3(0.0, 1.0, 0.0));
-    rotationMat = glm::rotate(rotationMat, 45.0f, glm::vec3(1.0, 0.0, 0.0));
+    //glm::mat4 rotationMat(1); 
+    //rotationMat = glm::rotate(rotationMat, 45.0f, glm::vec3(0.0, 0.0, 1.0));
+    //rotationMat = glm::rotate(rotationMat, 45.0f, glm::vec3(0.0, 1.0, 0.0));
+    //rotationMat = glm::rotate(rotationMat, 45.0f, glm::vec3(1.0, 0.0, 0.0));
     // set up view matrix according to player's ship position and direction
-    mViewMat = glm::lookAt(glm::vec3(rotationMat*glm::vec4(mPlayerPos.x,mPlayerPos.y,mPlayerPos.z,1.0f)), glm::vec3(mPlayerPos.x + mPlayerDir.x,mPlayerPos.y + mPlayerDir.y+20.5,mPlayerPos.z + mPlayerDir.z), upVec);
+    // mViewMat = glm::lookAt(glm::vec3(rotationMat*glm::vec4(mPlayerPos.x,mPlayerPos.y,mPlayerPos.z,1.0f)), glm::vec3(mPlayerPos.x + mPlayerDir.x,mPlayerPos.y + mPlayerDir.y+20.5,mPlayerPos.z + mPlayerDir.z), upVec);
+    mViewMat = glm::lookAt(mPlayerPos, mPlayerPos + mPlayerDir, upVec);
 
     // render tunnel walls
     RenderTunnel();
