@@ -1,4 +1,4 @@
-# Install script for directory: /home/ayodeji/Documents/endless-tunnel/app/src/main/cpp/common/ndk_helper
+# Install script for directory: /home/deji/Repos/TunnelFever/app/src/main/cpp/common/ndk_helper
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
