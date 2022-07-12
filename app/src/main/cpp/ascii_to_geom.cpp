@@ -20,6 +20,8 @@
 
 SimpleGeom* AsciiArtToGeom(const char *art, float scale) {
     // figure out width and height
+    
+    LOGD("world pos object");
     LOGD("Creating geometry from ASCII art.");
     GEOM_DEBUG("Ascii art source:\n%s", art);
     int rows = 1;
@@ -59,6 +61,7 @@ SimpleGeom* AsciiArtToGeom(const char *art, float scale) {
     }
 
     GEOM_DEBUG("Removing redundant line markers.");
+
 
     // remove redundant line markers
     for (r = 0; r < rows; r++) {

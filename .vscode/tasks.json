@@ -11,7 +11,7 @@
         {
             "label": "adb",
             "type": "shell",
-            "command": "/usr/lib/Android/platform-tools/adb start-server"
+            "command": "/home/deji/Android/Sdk/platform-tools/adb start-server"
         },
         {
             "label": "Build",

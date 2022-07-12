@@ -24,6 +24,7 @@
 #include "text_renderer.hpp"
 #include "textured_teapot_render.hpp"
 #include "util.hpp"
+#include "HelloWorld.hpp"
 
 class OurShader;
 
@@ -47,6 +48,7 @@ class PlayScene : public Scene {
         virtual void OnJoy(float joyX, float joyY);
         virtual void OnKeyDown(int keyCode);
         virtual void OnPause();
+        Hello *hello;
 
     protected:
         // shaders

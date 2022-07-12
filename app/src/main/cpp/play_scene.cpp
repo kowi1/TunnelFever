@@ -71,7 +71,9 @@ static const char* TONE_BONUS[] = {
 
 
 PlayScene::PlayScene() : Scene() {
+    hello= new Hello();
     mOurShader = NULL;
+
     mTrivialShader = NULL;
     mTextRenderer = NULL;
     mShapeRenderer = NULL;
@@ -149,6 +151,7 @@ PlayScene::PlayScene() : Scene() {
 
 
 PlayScene::PlayScene(struct android_app* app) : Scene() {
+    hello= new Hello();
     mApp=app;
     mOurShader = NULL;
     mTrivialShader = NULL;
@@ -381,9 +384,11 @@ void PlayScene::OnKillGraphics() {
     CleanUp(&mCubeGeom);
     CleanUp(&mWallTexture);
     CleanUp(&mLifeGeom);
+    hello->~Hello();
 }
 
 void PlayScene::DoFrame() {
+    
     float deltaT = mFrameClock.ReadDelta();
     float previousY = mPlayerPos.y;
 
@@ -401,14 +406,15 @@ void PlayScene::DoFrame() {
     // set up view matrix according to player's ship position and direction
     // mViewMat = glm::lookAt(glm::vec3(rotationMat*glm::vec4(mPlayerPos.x,mPlayerPos.y,mPlayerPos.z,1.0f)), glm::vec3(mPlayerPos.x + mPlayerDir.x,mPlayerPos.y + mPlayerDir.y+20.5,mPlayerPos.z + mPlayerDir.z), upVec);
     mViewMat = glm::lookAt(mPlayerPos, mPlayerPos + mPlayerDir, upVec);
-
+    
     // render tunnel walls
     RenderTunnel();
     glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPlayerPos.x, previousY+20.5f,mPlayerPos.z ));
-    modelMat = glm::scale(modelMat, glm::vec3(0.05f, 0.05f, 0.05f));
+    modelMat = glm::scale(modelMat, glm::vec3(0.02f, 0.02f, 0.02f));
     mTeapotRenderer->Render(mViewMat*modelMat, mProjMat);
     // render obstacles
     RenderObstacles();
+
 
     if (mMenu) {
         RenderMenu();
@@ -569,20 +575,48 @@ void PlayScene::RenderObstacles() {
     mOurShader->SetTexture(mWallTexture);
 
     for (i = 0; i < mObstacleCount; i++) {
+        //LOGD("SceneManager: installing scene %d",mObstacleCount);
         Obstacle *o = GetObstacleAt(i);
         float posY = GetSectionCenterY(mFirstSection + i);
-
+        LOGD("SceneManager: installing scene posY %f ",posY);
         if (o->style == Obstacle::STYLE_NULL) {
             // don't render null obstacles
             continue;
         }
-
-        for (r = 0; r < OBS_GRID_SIZE; r++) {
+        //hello->dynamicsWorld->stepSimulation(1.f / 60.f, 10);
+       for (r = 0; r < OBS_GRID_SIZE; r++) {
             for (c = 0; c < OBS_GRID_SIZE; c++) {
+
+       /*     btCollisionObject* obj = hello->dynamicsWorld->getCollisionObjectArray()[hello->sectionMap[r][c][i]];
+			btRigidBody* body = btRigidBody::upcast(obj);
+			btTransform trans;
+			if (body && body->getMotionState())
+			{
+				body->getMotionState()->getWorldTransform(trans);
+			}
+			else
+			{
+				trans = obj->getWorldTransform();
+			}
+			float xx=float(trans.getOrigin().getX());
+			float yy=float(trans.getOrigin().getY());
+		    float zz=float(trans.getOrigin().getZ());
+
+
+ LOGD("SceneManager: installing scene %f ",xx );
+ LOGD("SceneManager: installing scene %f ",yy );
+ LOGD("SceneManager: installing scene %f ",zz );
+*/
+
+
+
+
+               // hello->Loop();
                 bool isBonus = r == o->bonusRow && c == o->bonusCol;
                 if (o->grid[c][r]) {
                     // set up matrices
                     modelMat = glm::translate(glm::mat4(1.0f), o->GetBoxCenter(c, r, posY));
+                    //modelMat = glm::translate(glm::mat4(1.0f), glm::vec3(o->GetBoxCenter(c, r, posY).x+xx,o->GetBoxCenter(c, r, posY).y+yy,o->GetBoxCenter(c, r, posY).z+zz));
                     modelMat = glm::scale(modelMat, o->GetBoxSize(c, r));
                     mvpMat = mProjMat * mViewMat * modelMat;
 
@@ -594,6 +628,7 @@ void PlayScene::RenderObstacles() {
                     mOurShader->Render(&mvpMat);
                 } else if (isBonus) {
                     modelMat = glm::translate(glm::mat4(1.0f), o->GetBoxCenter(c, r, posY));
+                    //modelMat = glm::translate(glm::mat4(1.0f), glm::vec3(o->GetBoxCenter(c, r, posY).x+xx,o->GetBoxCenter(c, r, posY).y+yy,o->GetBoxCenter(c, r, posY).z+zz));
                     modelMat = glm::scale(modelMat, glm::vec3(OBS_BONUS_SIZE, OBS_BONUS_SIZE,
                             OBS_BONUS_SIZE));
                     modelMat = glm::rotate(modelMat, Clock() * 90.0f, glm::vec3(0.0f, 0.0f, 1.0f));
@@ -601,7 +636,9 @@ void PlayScene::RenderObstacles() {
                     mvpMat = mProjMat * mViewMat * modelMat;
                     mOurShader->SetTintColor(SineWave(0.8f, 1.0f, 0.5f, 0.0f),
                             SineWave(0.8f, 1.0f, 0.5f, 0.0f),
-                            SineWave(0.8f, 1.0f, 0.5f, 0.0f)); // shimmering color
+                            SineWave(0.8f, 1.0f, 0.5f, 0.0f)); 
+                            // shimmering color
+                  // mOurShader->EnablePointLight(o->GetBoxCenter(c, r, posY),1.0f, 1.0f, 1.0f);
                     mOurShader->Render(&mvpMat); // render
                 }
             }
@@ -623,9 +660,29 @@ void PlayScene::GenObstacles() {
         } else {
             // generate a normal obstacle
             mObstacleGen.Generate(&mObstacleCircBuf[index]);
+            //Add the obstale to the physics engine
+            Obstacle *o = GetObstacleAt(index);
+            float posY = GetSectionCenterY(index)/600;
+            LOGD("SceneManager: installing scene %d ",index );
+            for (int r = 0; r < OBS_GRID_SIZE; r++) {
+            for (int c = 0; c < OBS_GRID_SIZE; c++) {
+                bool isBonus = r == o->bonusRow && c == o->bonusCol;
+                if (o->grid[c][r]||isBonus) {
+                hello->AddShapes(r,c,index,int(o->GetBoxCenter(c, r, posY).x),int(o->GetBoxCenter(c, r, posY).y),int(o->GetBoxCenter(c, r, posY).z));
+              LOGD("SceneManager: installing scene %d ",r );
+              LOGD("SceneManager: installing scene %d ",c);
+              LOGD("SceneManager: installing scene %d ",index );
+              LOGD("SceneManager: installing scene %d ",posY);
+              LOGD("SceneManager: installing scene %d ",int(o->GetBoxCenter(c, r, posY).x) );
+              LOGD("SceneManager: installing scene %d ",int(o->GetBoxCenter(c, r, posY).y) );
+              LOGD("SceneManager: installing scene %d ",int(o->GetBoxCenter(c, r, posY).z) );
+              }
+            }
+        }
         }
         mObstacleCount++;
     }
+    
 }
 
 void PlayScene::ShiftIfNeeded() {
@@ -782,7 +839,7 @@ void PlayScene::DetectCollisions(float previousY) {
     if(isLifeUpdated){
     mLives=life;
     isLifeUpdated=false;}
-    if (!o || !(previousY < obsMin && curY >= obsMin)) {
+    if (!o || !(previousY+20.5f < obsMin && curY >= obsMin)) {
         // no collision
          
         return;
@@ -812,7 +869,7 @@ void PlayScene::DetectCollisions(float previousY) {
             mGameOverExpire = Clock() + GAME_OVER_EXPIRE;
             
         }
-        mPlayerPos.y = obsMin - PLAYER_RECEDE_AFTER_COLLISION;
+        mPlayerPos.y = obsMin - PLAYER_RECEDE_AFTER_COLLISION+20.5f;
         mPlayerSpeed = PLAYER_SPEED_AFTER_COLLISION;
         mBlinkingHeart = true;
         mBlinkingHeartExpire = Clock() + BLINKING_HEART_DURATION;

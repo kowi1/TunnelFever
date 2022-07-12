@@ -82,7 +82,7 @@ public class BillingActivity extends Activity {
                 // The BillingClient is ready. You can query purchases here.
 
                 List<String> skuList = new ArrayList<> ();
-                skuList.add("donation20");
+                skuList.add("life_pack9");
                 //skuList.add("gas");
                 SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
                 params.setSkusList(skuList).setType(SkuType.INAPP);
@@ -130,7 +130,7 @@ public class BillingActivity extends Activity {
             public void onConsumeResponse(BillingResult billingResult, String purchaseToken) {
                 if (billingResult.getResponseCode() == BillingResponseCode.OK) {
                     // Handle the success of the consume operation.
-                    UpdateLife(3);
+                    UpdateLife(5);
                     Activity billingActivity=(Activity)activityContext;
                     billingActivity.finish();
                 }

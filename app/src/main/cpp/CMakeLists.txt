@@ -21,6 +21,7 @@ cmake_minimum_required(VERSION 3.4.1)
 add_library(native_app_glue STATIC
      ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c)
 set(target_name game)     
+set(BULLET_PHYSICS_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/bullet)
 
 # Export ANativeActivity_onCreate(),
 # Refer to: https://github.com/android-ndk/ndk/issues/381.
@@ -35,6 +36,7 @@ add_definitions("-DGLM_FORCE_SIZE_T_LENGTH -DGLM_FORCE_RADIANS")
 
 # Import the CMakeLists.txt for the glm library
 add_subdirectory(glm)
+
 
 get_filename_component(ndkHelperSrc ${CMAKE_CURRENT_SOURCE_DIR}/common/ndk_helper ABSOLUTE)
 add_subdirectory(${ndkHelperSrc}
@@ -69,13 +71,15 @@ add_library(game SHARED
      ui_scene.cpp
      util.cpp
      vertexbuf.cpp
-     welcome_scene.cpp)
+     welcome_scene.cpp
+     HelloWorld.cpp)
 
 target_include_directories(game PRIVATE
      ${CMAKE_CURRENT_SOURCE_DIR}
      ${CMAKE_CURRENT_SOURCE_DIR}/data
      ${CMAKE_CURRENT_SOURCE_DIR}/common/ndk_helper
      ${CMAKE_CURRENT_SOURCE_DIR}/common/stb
+     ${BULLET_PHYSICS_SOURCE_DIR}/src
      ${ANDROID_NDK}/sources/android/native_app_glue)
 
 # add lib dependencies
@@ -100,3 +104,6 @@ add_subdirectory(${FIREBASE_CPP_SDK_DIR} bin/ EXCLUDE_FROM_ALL)
 # For example, to use Analytics, Firebase Authentication, and Firebase Realtime Database
 set(firebase_libs firebase_analytics firebase_auth firebase_database firebase_app)
 target_link_libraries(${target_name} "${firebase_libs}")
+
+add_subdirectory(bullet/src)
+target_link_libraries(${target_name} LinearMath  BulletDynamics BulletCollision BulletSoftBody)
