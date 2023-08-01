@@ -6,12 +6,12 @@
         {
             "label": "gradle",
             "type": "shell",
-            "command": "/usr/lib/gradle/bin/gradle build"
+            "command": "C:\\Gradle\\gradle-8.2.1\\bin\\gradle build"
         },
         {
             "label": "adb",
             "type": "shell",
-            "command": "/home/deji/Android/Sdk/platform-tools/adb start-server"
+            "command": "C:\\Users\\DEJI\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb start-server"
         },
         {
             "label": "Build",

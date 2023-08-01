@@ -1,0 +1,6 @@
+[
+    {
+        "merged": "com.example.namespace.app-mergeReleaseResources-25:/layout/activity_interstitiall.xml",
+        "source": "com.example.namespace.app-main-27:/layout/activity_interstitiall.xml"
+    }
+]

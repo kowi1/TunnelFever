@@ -16,7 +16,7 @@
 
 include ':app'
 
-def firebase_cpp_sdk_dir = "/usr/lib/firebase_cpp_sdk"
+def firebase_cpp_sdk_dir = "C:\\firebase_cpp_sdk"
 
 //gradle.ext.firebase_cpp_sdk_dir = "$firebase_cpp_sdk_dir"
 //includeBuild "$firebase_cpp_sdk_dir"

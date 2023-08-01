@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black_overlay">#66000000</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <string name="app_name">Tunnel Fever</string>
+    <string name="default_web_client_id" translatable="false">548587688240-1g20giqnt8hgeukvl7971qtdrt1q00ts.apps.googleusercontent.com</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="firebase_database_url" translatable="false">https://tunnel-fever.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">548587688240</string>
+    <string name="google_api_key" translatable="false">AIzaSyCrKysNUWOYpPXTDaq5W_XpoLAjddLL_z0</string>
+    <string name="google_app_id" translatable="false">1:548587688240:android:9b803725eb63b42b74b8f5</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCrKysNUWOYpPXTDaq5W_XpoLAjddLL_z0</string>
+    <string name="google_storage_bucket" translatable="false">tunnel-fever.appspot.com</string>
+    <string name="project_id" translatable="false">tunnel-fever</string>
+    <string name="title_activity_interstitiall">InterstitiallActivity</string>
+    <style name="AppTheme" parent="android:Theme.NoTitleBar.Fullscreen"/>
+    <style name="AppThemes" parent="android:Theme.Translucent.NoTitleBar.Fullscreen"/>
+    <style name="Theme.TunnelFever" parent="Theme.MaterialComponents.Light"/>
+    <style name="Theme.TunnelFever.Fullscreen" parent="Theme.TunnelFever">
+        <item name="android:actionBarStyle">@style/Widget.Theme.TunnelFever.ActionBar.Fullscreen
+        </item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+    </style>
+    <style name="ThemeOverlay.TunnelFever.FullscreenContainer" parent="">
+        <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
+        <item name="fullscreenTextColor">@color/light_blue_A200</item>
+    </style>
+    <style name="Widget.Theme.TunnelFever.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+    <style name="Widget.Theme.TunnelFever.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    </style>
+    <declare-styleable name="FullscreenAttrs">
+        <attr format="color" name="fullscreenBackgroundColor"/>
+        <attr format="color" name="fullscreenTextColor"/>
+    </declare-styleable>
+</resources>

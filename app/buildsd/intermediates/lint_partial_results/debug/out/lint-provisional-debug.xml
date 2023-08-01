@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 8.0.2" type="conditional_incidents">
+
+    <incident
+        id="IntentFilterExportedReceiver"
+        severity="warning"
+        message="As of Android 12, `android:exported` must be set; use `true` to make the activity \&#xA;available to other apps, and `false` otherwise. For launcher activities, this should be set to `true`.">
+        <fix-attribute
+            description="Set exported=&quot;true&quot;"
+            namespace="http://schemas.android.com/apk/res/android"
+            attribute="exported"
+            value="true"/>
+        <location
+            file="${:app*debug*sourceProvider*0*manifest*0}"
+            line="17"
+            column="10"
+            startOffset="616"
+            endLine="17"
+            endColumn="18"
+            endOffset="624"/>
+    </incident>
+
+    <incident
+        id="IntentFilterExportedReceiver"
+        severity="warning"
+        message="As of Android 12, `android:exported` must be set; use `true` to make the activity \&#xA;available to other apps, and `false` otherwise.">
+        <fix-alternatives>
+            <fix-attribute
+                description="Set exported=&quot;true&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="exported"
+                value="true"/>
+            <fix-attribute
+                description="Set exported=&quot;false&quot;"
+                namespace="http://schemas.android.com/apk/res/android"
+                attribute="exported"
+                value="false"/>
+        </fix-alternatives>
+        <location
+            file="${:app*debug*sourceProvider*0*manifest*0}"
+            line="33"
+            column="10"
+            startOffset="1267"
+            endLine="33"
+            endColumn="18"
+            endOffset="1275"/>
+    </incident>
+
+    <incident
+        id="ObsoleteSdkInt"
+        severity="warning"
+        message="Unnecessary; SDK_INT is always >= 9">
+        <fix-replace
+            description="Delete @TargetApi"
+            replacement="">
+            <range
+                file="${:app*debug*sourceProvider*0*javaDir*0}/com/joyholdings/tunnel/NDKHelper.java"
+                startOffset="1520"
+                endOffset="1563"/>
+        </fix-replace>
+        <location
+            file="${:app*debug*sourceProvider*0*javaDir*0}/com/joyholdings/tunnel/NDKHelper.java"
+            line="48"
+            column="1"
+            startOffset="1520"
+            endLine="48"
+            endColumn="44"
+            endOffset="1563"/>
+        <map>
+            <condition minGE="ffffffffffffff00"/>
+        </map>
+    </incident>
+
+    <incident
+        id="ObsoleteSdkInt"
+        severity="warning"
+        message="Unnecessary; SDK_INT is always >= 17">
+        <fix-replace
+            description="Delete @TargetApi"
+            replacement="">
+            <range
+                file="${:app*debug*sourceProvider*0*javaDir*0}/com/joyholdings/tunnel/NDKHelper.java"
+                startOffset="10493"
+                endOffset="10539"/>
+        </fix-replace>
+        <location
+            file="${:app*debug*sourceProvider*0*javaDir*0}/com/joyholdings/tunnel/NDKHelper.java"
+            line="322"
+            column="5"
+            startOffset="10493"
+            endLine="322"
+            endColumn="51"
+            endOffset="10539"/>
+        <map>
+            <condition minGE="ffffffffffff0000"/>
+        </map>
+    </incident>
+
+    <incident
+        id="ExpiredTargetSdkVersion"
+        severity="fatal"
+        message="Google Play requires that apps target API level 31 or higher.&#xA;">
+        <fix-replace
+            description="Update targetSdkVersion to 34"
+            oldString="30"
+            replacement="34"/>
+        <location
+            file="${:app*projectDir}/build.gradle"
+            line="32"
+            column="9"
+            startOffset="975"
+            endLine="32"
+            endColumn="28"
+            endOffset="994"/>
+    </incident>
+
+</incidents>

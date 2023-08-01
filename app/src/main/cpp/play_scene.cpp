@@ -28,7 +28,9 @@
 #include "data/cube_geom.inl"
 #include "data/strings.inl"
 #include "data/tunnel_geom.inl"
+
 #include "data/teapot.inl"
+#include "firebase/gma/interstitial_ad.h"
 
 
 #define WALL_TEXTURE_SIZE 64
@@ -69,6 +71,7 @@ static const char* TONE_BONUS[] = {
     "d70 f550. f650. f750. f850."
 };
 
+namespace gma = firebase::gma;
 
 PlayScene::PlayScene() : Scene() {
     hello= new Hello();
@@ -787,7 +790,11 @@ void PlayScene::RenderHUD() {
 
         mTextRenderer->SetMatrix(modelMat);
         mTextRenderer->SetFontScale(SIGN_FONT_SCALE);
-        mTextRenderer->RenderText(mSignText, aspect * 0.5f, 0.5f);
+        if(mSignText==S_GOT_BONUS){
+        mTextRenderer->RenderText(mSignText, aspect * 0.5f, 0.1f);
+        }else{
+            mTextRenderer->RenderText(mSignText, aspect * 0.5f, 0.5f);
+        }
         mTextRenderer->ResetMatrix();
     }
 
@@ -836,9 +843,9 @@ void PlayScene::DetectCollisions(float previousY) {
     float obsCenter = GetSectionCenterY(mFirstSection);
     float obsMin = obsCenter - OBS_BOX_SIZE;
     float curY = mPlayerPos.y+20.5f;
-    if(isLifeUpdated){
+  /**  if(isLifeUpdated){
     mLives=life;
-    isLifeUpdated=false;}
+    isLifeUpdated=false;}*/
     if (!o || !(previousY+20.5f < obsMin && curY >= obsMin)) {
         // no collision
          
@@ -851,9 +858,9 @@ void PlayScene::DetectCollisions(float previousY) {
     if(o->grid[col][row] && (mLives-1==0))
     {   
         BuyLifeInit();
-        isLifeUpdated=true;
+      //  isLifeUpdated=true;
        // mLives=mLives+life;
-        return;
+       // return;
     }
     if (o->grid[col][row]) {
         // crashed against obstacle
@@ -897,6 +904,7 @@ void PlayScene::DetectCollisions(float previousY) {
             // save progress, if needed
             SaveProgress();
         } else {
+
             int tone = (score % SCORE_PER_LEVEL) / BONUS_POINTS - 1;
             tone = tone < 0 ? 0 :
                    tone >= static_cast<int>(sizeof(TONE_BONUS)/sizeof(char*)) ?
@@ -935,7 +943,7 @@ bool PlayScene::OnBackKeyPressed() {
         ShowMenu(MENU_NONE);
     } else {
         // enter pause menu
-       //  BuyLife();
+         //BuyLife();
         ShowMenu(MENU_PAUSE);
     }
     return true;
@@ -1068,7 +1076,8 @@ mApp->activity->vm->AttachCurrentThread(&env, NULL);
 
 jobject lNativeActivity = mApp->activity->clazz;
 jclass intentClass = env->FindClass("android/content/Intent");
-jstring actionString =env->NewStringUTF("com.joyholdings.tunnel.BillingActivity");
+jstring actionString =env->NewStringUTF("com.joyholdings.tunnel.InterstitialActivity");
+//jstring actionString =env->NewStringUTF("com.joyholdings.tunnel.InterstitiallActivity");
 jmethodID newIntent = env->GetMethodID(intentClass, "<init>", "()V");
 jobject intent = env->AllocObject(intentClass);
 env->CallVoidMethod(intent, newIntent);

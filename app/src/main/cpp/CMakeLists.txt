@@ -80,7 +80,8 @@ target_include_directories(game PRIVATE
      ${CMAKE_CURRENT_SOURCE_DIR}/common/ndk_helper
      ${CMAKE_CURRENT_SOURCE_DIR}/common/stb
      ${BULLET_PHYSICS_SOURCE_DIR}/src
-     ${ANDROID_NDK}/sources/android/native_app_glue)
+     ${ANDROID_NDK}/sources/android/native_app_glue
+     ${FIREBASE_CPP_SDK_DIR}/include)
 
 # add lib dependencies
 target_link_libraries(game
@@ -102,7 +103,7 @@ add_subdirectory(${FIREBASE_CPP_SDK_DIR} bin/ EXCLUDE_FROM_ALL)
 
 # Add the Firebase SDKs for the products you want to use in your app
 # For example, to use Analytics, Firebase Authentication, and Firebase Realtime Database
-set(firebase_libs firebase_analytics firebase_auth firebase_database firebase_app)
+set(firebase_libs firebase_analytics firebase_auth firebase_database firebase_gma firebase_app)
 target_link_libraries(${target_name} "${firebase_libs}")
 
 add_subdirectory(bullet/src)

@@ -1,0 +1,2 @@
+ninja: Entering directory `C:\Users\DEJI\source\repos\TunnelFever\app\.cxx\RelWithDebInfo\4i736u27\x86_64'
+ninja: no work to do.
