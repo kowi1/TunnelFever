@@ -335,8 +335,7 @@ void UiWidget::Render(TrivialShader *trivialShader, TextRenderer *textRenderer,
     // draw background
     if (mIsButton && !mTransparent) {
         shapeRenderer->SetColor(mBackColor);
-        shapeRenderer->RenderRect(x, y, w * factor * (1.0f - borderSize),
-                h * factor * (1.0f - borderSize));
+        shapeRenderer->RenderRect(x, y, w * factor * (1.0f - borderSize),h * factor * (1.0f - borderSize));
     }
 
     // draw text

@@ -51,12 +51,15 @@ WelcomeScene::WelcomeScene() {
 
 WelcomeScene::WelcomeScene(struct android_app *app){
 mApp=app;
+mTeapotRenderer= new TexturedTeapotRender();
+mTeapotRenderer->Init(mApp->activity->assetManager);
 }
 WelcomeScene::~WelcomeScene() {
 }
 
 void WelcomeScene::RenderBackground() {
-    RenderBackgroundAnimation(mShapeRenderer);
+
+    RenderBackgroundAnimations(mShapeRenderer,mTeapotRenderer);
 }
 
 void WelcomeScene::OnButtonClicked(int id) {

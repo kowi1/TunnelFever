@@ -102,6 +102,7 @@ PlayScene::PlayScene() : Scene() {
     mMenuItemText[MENUITEM_QUIT] = S_QUIT;
     mMenuItemText[MENUITEM_START_OVER] = S_START_OVER;
     mMenuItemText[MENUITEM_RESUME] = S_RESUME;
+    mMenuItemText[MENUITEM_BUYCOIN] = S_BUYCOIN;
 
     memset(mMenuItems, 0, sizeof(mMenuItems));
     mMenuItemCount = 0;
@@ -185,6 +186,7 @@ PlayScene::PlayScene(struct android_app* app) : Scene() {
     mMenuItemText[MENUITEM_QUIT] = S_QUIT;
     mMenuItemText[MENUITEM_START_OVER] = S_START_OVER;
     mMenuItemText[MENUITEM_RESUME] = S_RESUME;
+    mMenuItemText[MENUITEM_BUYCOIN] = S_BUYCOIN;
 
     memset(mMenuItems, 0, sizeof(mMenuItems));
     mMenuItemCount = 0;
@@ -391,7 +393,15 @@ void PlayScene::OnKillGraphics() {
 }
 
 void PlayScene::DoFrame() {
-    
+
+    GLenum err;
+    LOGI("Created GLERROR %d", err);
+    while((err = glGetError()) != GL_NO_ERROR)
+    {
+        LOGI("Created GLERROR %d", err);
+        // Process/log the error.
+    }
+
     float deltaT = mFrameClock.ReadDelta();
     float previousY = mPlayerPos.y;
 
@@ -402,7 +412,7 @@ void PlayScene::DoFrame() {
 
     // rotate the view matrix according to current roll angle
     glm::vec3 upVec = glm::vec3(-sin(mRollAngle), 0, cos(mRollAngle));
-    //glm::mat4 rotationMat(1); 
+    //glm::mat4 rotationMat(1);
     //rotationMat = glm::rotate(rotationMat, 45.0f, glm::vec3(0.0, 0.0, 1.0));
     //rotationMat = glm::rotate(rotationMat, 45.0f, glm::vec3(0.0, 1.0, 0.0));
     //rotationMat = glm::rotate(rotationMat, 45.0f, glm::vec3(1.0, 0.0, 0.0));
@@ -412,10 +422,30 @@ void PlayScene::DoFrame() {
     
     // render tunnel walls
     RenderTunnel();
-    glm::mat4 modelMat = glm::translate(glm::mat4(1.0f), glm::vec3(mPlayerPos.x, previousY+20.5f,mPlayerPos.z ));
-    modelMat = glm::scale(modelMat, glm::vec3(0.02f, 0.02f, 0.02f));
-    mTeapotRenderer->Render(mViewMat*modelMat, mProjMat);
+
+    float angleInRadians = glm::radians(-100.0f); // Angle in radians
+    glm::vec3 rotationAxis = glm::vec3(0.0f, 0.0f, 1.0f);
+    float angleInRadiansz = glm::radians(40.0f); // Angle in radians
+    glm::vec3 rotationAxisz = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), angleInRadians, rotationAxis);
+    glm::mat4 rotationMatrixz = glm::rotate(glm::mat4(1.0f), angleInRadiansz, rotationAxisz);
+
+    if(k*Pos_step < 20.5) {
+        animPos=k*Pos_step;
+    }
+    if(k*Scale_step < 0.1) {
+        animScale=k*Scale_step;
+    }
+        glm::mat4 modelMat = glm::translate(glm::mat4(1.0f),
+                                            glm::vec3(mPlayerPos.x, previousY + animPos,
+                                                      mPlayerPos.z));
+
+    modelMat = glm::scale(modelMat, glm::vec3(animScale, animScale, animScale));
+    mTeapotRenderer->Render(mViewMat*modelMat*rotationMatrix*rotationMatrixz, mProjMat);
     // render obstacles
+    if(k<2000) {
+        k++;
+    }
     RenderObstacles();
 
 
@@ -843,9 +873,9 @@ void PlayScene::DetectCollisions(float previousY) {
     float obsCenter = GetSectionCenterY(mFirstSection);
     float obsMin = obsCenter - OBS_BOX_SIZE;
     float curY = mPlayerPos.y+20.5f;
-  /**  if(isLifeUpdated){
-    mLives=life;
-    isLifeUpdated=false;}*/
+    if(isLifeUpdated){
+    mLives=mLives+life;
+    isLifeUpdated=false;}
     if (!o || !(previousY+20.5f < obsMin && curY >= obsMin)) {
         // no collision
          
@@ -958,7 +988,7 @@ bool PlayScene::BuyLifeInit() {
         ShowMenu(MENU_NONE);
     } else {
         // enter pause menu
-         BuyLife();
+        ShowAd();
         ShowMenu(MENU_PAUSE);
     }
     return true;
@@ -1006,7 +1036,8 @@ void PlayScene::ShowMenu(int menu) {
         case MENU_PAUSE:
             mMenuItems[0] = MENUITEM_UNPAUSE;
             mMenuItems[1] = MENUITEM_QUIT;
-            mMenuItemCount = 2;
+            mMenuItems[2] = MENUITEM_BUYCOIN;
+            mMenuItemCount = 3;
             break;
         case MENU_LEVEL:
             mMenuItems[0] = MENUITEM_RESUME;
@@ -1040,6 +1071,11 @@ void PlayScene::HandleMenu(int menuItem) {
             // start over from scratch
             ShowMenu(MENU_NONE);
             break;
+        case MENUITEM_BUYCOIN:
+            // start over from scratch
+            BuyLife();
+            ShowMenu(MENU_PAUSE);
+            break;
     }
 }
 
@@ -1068,7 +1104,7 @@ void PlayScene::UpdateProjectionMatrix() {
             RENDER_FAR_CLIP);
 }
 
-void PlayScene::BuyLife() 
+void PlayScene::ShowAd()
 {
 JNIEnv * env=mApp->activity->env;
 
@@ -1097,11 +1133,40 @@ env->DeleteLocalRef( intentClass );
 mApp->activity->vm->DetachCurrentThread();
 }
 
+void PlayScene::BuyLife()
+{
+    JNIEnv * env=mApp->activity->env;
+
+    mApp->activity->vm->AttachCurrentThread(&env, NULL);
+
+    jobject lNativeActivity = mApp->activity->clazz;
+    jclass intentClass = env->FindClass("android/content/Intent");
+   // jstring actionString =env->NewStringUTF("com.joyholdings.tunnel.InterstitialActivity");
+    jstring actionString =env->NewStringUTF("com.joyholdings.tunnel.BillingActivity");
+//jstring actionString =env->NewStringUTF("com.joyholdings.tunnel.InterstitiallActivity");
+    jmethodID newIntent = env->GetMethodID(intentClass, "<init>", "()V");
+    jobject intent = env->AllocObject(intentClass);
+    env->CallVoidMethod(intent, newIntent);
+    jmethodID setAction = env->GetMethodID(intentClass, "setAction","(Ljava/lang/String;)Landroid/content/Intent;");
+    env->CallObjectMethod(intent, setAction, actionString);
+    jclass activityClass = env->FindClass("android/app/Activity");
+    jmethodID startActivity = env->GetMethodID(activityClass,"startActivity", "(Landroid/content/Intent;)V");
+    jobject intentObject = env->NewObject(intentClass,newIntent);
+    env->CallObjectMethod(intentObject, setAction,actionString);
+    env->CallVoidMethod( lNativeActivity, startActivity, intentObject);
+    env->DeleteLocalRef( intent );
+    env->DeleteLocalRef( intentObject);
+    env->DeleteLocalRef( activityClass );
+    env->DeleteLocalRef( intentClass );
+
+
+    mApp->activity->vm->DetachCurrentThread();
+}
+
 
 
 extern "C" JNIEXPORT jstring JNICALL
-Java_com_joyholdings_tunnel_BillingActivity_UpdateLife( JNIEnv* env,
-                                                  jobject thiz,jint life_nos )
+Java_com_joyholdings_tunnel_BillingActivity_UpdateLife( JNIEnv* env,jobject thiz,jint life_nos )
 {
     
 life=life_nos;

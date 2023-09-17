@@ -59,8 +59,8 @@ TexturedTeapotRender::~TexturedTeapotRender() {
  */
 GLint TexturedTeapotRender::GetTextureType(void) {
     return
-            GL_TEXTURE_CUBE_MAP;
-//            GL_TEXTURE_2D;
+          GL_TEXTURE_CUBE_MAP;
+         // GL_TEXTURE_2D;
 //            GL_INVALID_VALUE;
 }
 
@@ -119,12 +119,12 @@ void TexturedTeapotRender::Init(AAssetManager* assetMgr) {
 
     // Need flip Y, so as top/bottom image
     std::vector<std::string> textures {
-            std::string("Textures/right.tga"),  // GL_TEXTURE_CUBE_MAP_POSITIVE_X
-            std::string("Textures/left.tga"),   // GL_TEXTURE_CUBE_MAP_NEGATIVE_X
-            std::string("Textures/bottom.tga"), // GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
-            std::string("Textures/top.tga"),    // GL_TEXTURE_CUBE_MAP_POSITIVE_Y
-            std::string("Textures/front.tga"),  // GL_TEXTURE_CUBE_MAP_POSITIVE_Z
-            std::string("Textures/back.tga")    // GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
+            std::string("Textures/right.png"),  // GL_TEXTURE_CUBE_MAP_POSITIVE_X
+            std::string("Textures/left.png"),   // GL_TEXTURE_CUBE_MAP_NEGATIVE_X
+            std::string("Textures/bottom.png"), // GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
+           std::string("Textures/top.png"),    // GL_TEXTURE_CUBE_MAP_POSITIVE_Y
+           std::string("Textures/front.png"),  // GL_TEXTURE_CUBE_MAP_POSITIVE_Z
+            std::string("Textures/back.png")    // GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
     };
 
     if(type == GL_TEXTURE_2D) {
@@ -144,6 +144,14 @@ void TexturedTeapotRender::Init(AAssetManager* assetMgr) {
     }
 
     texObj_->Activate();
+    GLenum err;
+    while((err = glGetError()) != GL_NO_ERROR)
+    {
+
+        LOGI("Created GLERROR %d", err);
+        // Process/log the error.
+        err=0;
+    }
 }
 
 /**
@@ -152,7 +160,7 @@ void TexturedTeapotRender::Init(AAssetManager* assetMgr) {
  *   For Texture, simply inform GL to stream texture coord from _texVbo
  */
 void TexturedTeapotRender::Render(glm::mat4 mViewMat, glm::mat4 mProjMat) {
-   mat_projection_=ndk_helper::Mat4((const float*)glm::value_ptr(mProjMat));
+  mat_projection_=ndk_helper::Mat4((const float*)glm::value_ptr(mProjMat));
    mat_view_=ndk_helper::Mat4((const float*)glm::value_ptr(mViewMat));
     TeapotRenderer::Render();
 }
@@ -168,6 +176,7 @@ void TexturedTeapotRender::Unload() {
         texVbo_ = GL_INVALID_VALUE;
     }
     if(texObj_) {
+
         TeapotTexture::Delete(texObj_);
         texObj_ = nullptr;
     }

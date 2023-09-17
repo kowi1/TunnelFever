@@ -21,6 +21,7 @@
 #include "tex_quad.hpp"
 #include "ui_scene.hpp"
 #include "util.hpp"
+#include "textured_teapot_render.hpp"
 
 
 /* The "welcome scene" (main menu) */
@@ -48,6 +49,8 @@ class WelcomeScene : public UiScene {
         virtual void DoFrame();
     private:
         struct android_app *mApp;
+        TexturedTeapotRender* mTeapotRenderer;
+
 };
 
 #endif

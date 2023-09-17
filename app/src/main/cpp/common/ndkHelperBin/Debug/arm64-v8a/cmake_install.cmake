@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/DEJI/source/repos/TunnelFever/app/src/main/cpp/common/ndk_helper
+# Install script for directory: C:/Users/DEJI/Downloads/TunnelFever/app/src/main/cpp/common/ndk_helper
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

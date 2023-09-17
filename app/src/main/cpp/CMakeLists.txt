@@ -38,6 +38,7 @@ add_definitions("-DGLM_FORCE_SIZE_T_LENGTH -DGLM_FORCE_RADIANS")
 add_subdirectory(glm)
 
 
+
 get_filename_component(ndkHelperSrc ${CMAKE_CURRENT_SOURCE_DIR}/common/ndk_helper ABSOLUTE)
 add_subdirectory(${ndkHelperSrc}
 ${CMAKE_CURRENT_SOURCE_DIR}/common/ndkHelperBin/${CMAKE_BUILD_TYPE}/${ANDROID_ABI})

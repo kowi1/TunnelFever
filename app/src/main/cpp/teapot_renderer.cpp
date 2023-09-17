@@ -59,41 +59,54 @@ void TeapotRenderer::Init() {
                  "Shaders/ShaderPlain.fsh");
   }
   // Create Index buffer
-
-  num_indices_ = sizeof(teapotIndices) / sizeof(teapotIndices[0]);
+  GLenum err;
+  num_indices_ = sizeof(carpetIndicess) / sizeof(carpetIndicess[0]);
   glGenBuffers(1, &ibo_);
+
+
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(teapotIndices), teapotIndices,
+
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(carpetIndicess), carpetIndicess,
                GL_STATIC_DRAW);
+
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
+
   // Create VBO
-  num_vertices_ = sizeof(teapotPositions) / sizeof(teapotPositions[0]) / 3;
+  num_vertices_ = sizeof(carpetPositionss) / sizeof(carpetPositionss[0]) / 3;
   int32_t stride = sizeof(TEAPOT_VERTEX);
   int32_t index = 0;
   TEAPOT_VERTEX* p = new TEAPOT_VERTEX[num_vertices_];
   for (int32_t i = 0; i < num_vertices_; ++i) {
-    p[i].pos[0] = teapotPositions[index];
-    p[i].pos[1] = teapotPositions[index + 1];
-    p[i].pos[2] = teapotPositions[index + 2];
+    p[i].pos[0] = carpetPositionss[index];
+    p[i].pos[1] = carpetPositionss[index + 1];
+    p[i].pos[2] = carpetPositionss[index + 2];
 
-    p[i].normal[0] = teapotNormals[index];
-    p[i].normal[1] = teapotNormals[index + 1];
-    p[i].normal[2] = teapotNormals[index + 2];
+    p[i].normal[0] = carpetNormalss[index];
+    p[i].normal[1] = carpetNormalss[index + 1];
+
+    p[i].normal[2] = carpetNormalss[index + 2];
     index += 3;
   }
   glGenBuffers(1, &vbo_);
+
+
+
   glBindBuffer(GL_ARRAY_BUFFER, vbo_);
+
   glBufferData(GL_ARRAY_BUFFER, stride * num_vertices_, p, GL_STATIC_DRAW);
+
+
   glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 
   delete[] p;
 
-  //UpdateViewport();
+  UpdateViewport();
   mat_model_ = ndk_helper::Mat4::Translation(0, 0, -15.f);
 
   ndk_helper::Mat4 mat = ndk_helper::Mat4::RotationX(M_PI / 3);
-  // ndk_helper::Mat4 mat = ndk_helper::Mat4::Scale(50.f,50.f,50.f);
+ //  ndk_helper::Mat4 mat1 = ndk_helper::Mat4::Scale(500.f,500.f,500.f);
   mat_model_ = mat * mat_model_;
 }
 
@@ -146,7 +159,8 @@ void TeapotRenderer::Update(float fTime) {
   if (camera_) {
     camera_->Update();
     mat_view_ = camera_->GetTransformMatrix() * mat_view_ *
-                camera_->GetRotationMatrix() * mat_model_;
+                camera_->GetRotationMatrix()
+                * mat_model_;
   } else {
     mat_view_ = mat_view_ * mat_model_;
   }
@@ -155,6 +169,7 @@ void TeapotRenderer::Update(float fTime) {
 void TeapotRenderer::Render() {
   //
   // Feed Projection and Model View matrices to the shaders
+  //Update(0.0f);
   ndk_helper::Mat4 mat_vp = mat_projection_ * mat_view_;
 
   // Bind the VBO
@@ -179,12 +194,12 @@ void TeapotRenderer::Render() {
       {1.0f, 0.5f, 0.5f}, {1.0f, 1.0f, 1.0f, 10.f}, {0.1f, 0.1f, 0.1f}, };
 
   // Update uniforms
-  glUniform4f(shader_param_.material_diffuse_, material.diffuse_color[0],
+glUniform4f(shader_param_.material_diffuse_, material.diffuse_color[0],
               material.diffuse_color[1], material.diffuse_color[2], 1.f);
 
   glUniform4f(shader_param_.material_specular_, material.specular_color[0],
-              material.specular_color[1], material.specular_color[2],
-              material.specular_color[3]);
+             material.specular_color[1], material.specular_color[2],
+             material.specular_color[3]);
   //
   // using glUniform3fv here was troublesome
   //
@@ -192,15 +207,22 @@ void TeapotRenderer::Render() {
               material.ambient_color[1], material.ambient_color[2]);
 
   glUniformMatrix4fv(shader_param_.matrix_projection_, 1, GL_FALSE,
-                     mat_vp.Ptr());
+                    mat_vp.Ptr());
   glUniformMatrix4fv(shader_param_.matrix_view_, 1, GL_FALSE, mat_view_.Ptr());
-  glUniform3f(shader_param_.light0_, 100.f, -200.f, -600.f);
+ glUniform3f(shader_param_.light0_, 100.f, -200.f, -600.f);
 
   glDrawElements(GL_TRIANGLES, num_indices_, GL_UNSIGNED_SHORT,
                  BUFFER_OFFSET(0));
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+   GLenum err;
+    LOGI("Created GLERROR %d", err);
+    while((err = glGetError()) != GL_NO_ERROR)
+    {
+        LOGI("Created GLERROR %d", err);
+        // Process/log the error.
+    }
 }
 
 bool TeapotRenderer::LoadShaders(SHADER_PARAMS* params, const char* strVsh,

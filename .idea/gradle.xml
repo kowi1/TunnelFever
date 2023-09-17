@@ -7,9 +7,9 @@
         <compositeConfiguration>
           <compositeBuild compositeDefinitionSource="SCRIPT">
             <builds>
-              <build path="$PROJECT_DIR$/../../../../../firebase_cpp_sdk" name="firebase_cpp_sdk">
+              <build path="$PROJECT_DIR$/../../../../firebase_cpp_sdk" name="firebase_cpp_sdk">
                 <projects>
-                  <project path="$PROJECT_DIR$/../../../../../firebase_cpp_sdk" />
+                  <project path="$PROJECT_DIR$/../../../../firebase_cpp_sdk" />
                 </projects>
               </build>
             </builds>
@@ -23,7 +23,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/../../../../../firebase_cpp_sdk" />
+            <option value="$PROJECT_DIR$/../../../../firebase_cpp_sdk" />
           </set>
         </option>
       </GradleProjectSettings>

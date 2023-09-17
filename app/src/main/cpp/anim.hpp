@@ -17,10 +17,14 @@
 #define endlesstunnel_anim_hpp
 
 #include "shape_renderer.hpp"
+#include "text_renderer.hpp"
+#include "textured_teapot_render.hpp"
+
 
 /* Renders a the background animation seen on the main screen and menus (the parallax
  * rectangles scrolling by). */
 void RenderBackgroundAnimation(ShapeRenderer *r);
+void RenderBackgroundAnimations(ShapeRenderer *r,TexturedTeapotRender * mTeapotRenderer);
 
 #endif
 

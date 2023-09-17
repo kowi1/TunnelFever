@@ -27,6 +27,7 @@
 #define S_QUIT "Quit"
 #define S_START_OVER "Start Over"
 #define S_RESUME "Start from checkpoint"
+#define S_BUYCOIN "Buy Coin"
 
 #define S_TITLE "Tunnel Fever"
 #define S_PLAY "Play!"
